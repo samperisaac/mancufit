@@ -1,0 +1,28 @@
+{
+  "name": "MancuFit",
+  "short_name": "MancuFit",
+  "description": "Registra tus ejercicios y pesos en casa con la app de confianza MancuFit",
+  "start_url": "https://mancufit.netlify.app/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "orientation": "portrait",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "https://mancufit.netlify.app/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://mancufit.netlify.app/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "fitness",
+    "health",
+    "sports"
+  ]
+}
