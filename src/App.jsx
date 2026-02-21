@@ -1,66 +1,58 @@
-import React, { useState } from 'react';
-import CuerpoHumano from './CuerpoHumano';
-import RegistroEjercicios from './RegistroEjercicios';
+import React, { useState } from "react";
+import CuerpoHumano from "./CuerpoHumano";
 
 export default function App() {
-  const [pantalla, setPantalla] = useState(null); // null, 'registro' o 'cuerpo'
-  const [musculo, setMusculo] = useState(null);
-
-  if (!pantalla) {
-    // Menú principal
-    return (
-      <div className="p-4 max-w-md mx-auto text-center">
-        <h1 className="text-2xl font-bold mb-6">MancuFit</h1>
-      <button
-        className="
-                bg-gradient-to-b from-gray-500 to-black 
-    text-white 
-    px-6 py-3 
-    rounded-xl 
-    m-2 
-    font-bold 
-    shadow-lg 
-    transform 
-    hover:-translate-y-1 hover:scale-105 
-    transition-all duration-300
-  "
-  onClick={() => setPantalla('registro')}
->
-  Registro de ejercicios
-</button>
-
-<button
-  className="
-    bg-gradient-to-b from-gray-500 to-black 
-    text-white 
-    px-6 py-3 
-    rounded-xl 
-    m-2 
-    font-bold 
-    shadow-lg 
-    transform 
-    hover:-translate-y-1 hover:scale-105 
-    transition-all duration-300
-  "
-  onClick={() => setPantalla('cuerpo')}
->
-  Seleccionar músculo
-</button>
-      </div>
-    );
-  }
+  const [selectedMenu, setSelectedMenu] = useState(null);
+  const [selectedMuscle, setSelectedMuscle] = useState(null);
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <button
-        className="text-gray-500 underline mb-4"
-        onClick={() => setPantalla(null)}
-      >
-        Volver al menú
-      </button>
+    <div className="min-h-screen bg-gradient-to-br from-[#00008A] to-black text-white flex flex-col items-center p-6">
+      <h1 className="text-4xl font-bold mb-6 drop-shadow-lg">MancuFit</h1>
 
-      {pantalla === 'registro' && <RegistroEjercicios musculo={musculo} />}
-      {pantalla === 'cuerpo' && <CuerpoHumano onSeleccion={setMusculo} />}
+      {/* Menú */}
+      <div className="flex gap-4 mb-6">
+        {["registro", "musculos"].map((menu) => (
+          <button
+            key={menu}
+            className={`
+              bg-gradient-to-b from-gray-700 to-black text-white
+              rounded-xl px-6 py-3 shadow-lg
+              transform transition-all duration-300
+              hover:scale-105 hover:shadow-2xl
+              ${selectedMenu === menu ? "ring-2 ring-blue-500" : ""}
+            `}
+            onClick={() => {
+              setSelectedMenu(menu);
+              setSelectedMuscle(null); // reset músculo al cambiar menú
+            }}
+          >
+            {menu === "registro" ? "Registro de ejercicios" : "Cuerpo humano"}
+          </button>
+        ))}
+      </div>
+
+      {/* Contenido según menú */}
+      {selectedMenu === "registro" && (
+        <div className="w-full max-w-md p-6 bg-black/30 rounded-xl shadow-inner animate-fadeIn">
+          <p>Aquí puedes anotar tus ejercicios y pesos.</p>
+        </div>
+      )}
+
+      {selectedMenu === "musculos" && (
+        <div className="w-full max-w-md p-6 bg-black/30 rounded-xl shadow-inner animate-fadeIn flex flex-col items-center">
+          <p className="mb-4 text-center">Selecciona un músculo haciendo click en el cuerpo:</p>
+          
+          <CuerpoHumano
+            onSelectMuscle={(muscle) => setSelectedMuscle(muscle)}
+          />
+
+          {selectedMuscle && (
+            <p className="mt-4 font-semibold text-lg animate-pulse">
+              Has seleccionado: {selectedMuscle}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
