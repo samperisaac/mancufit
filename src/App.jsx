@@ -36,24 +36,25 @@ export default function App() {
   const [diasSeleccionados, setDiasSeleccionados] = useState([]);
   const [verCuerpo, setVerCuerpo] = useState(false);
 
-  // FASE 5: Estados de entrenamiento
+  // FASE 5 & 6: Estados de entrenamiento e historial
   const [modoEntreno, setModoEntreno] = useState(false);
   const [completados, setCompletados] = useState([]);
+  const [historial, setHistorial] = useState([]);
 
-  // Carga inicial
+  // Carga inicial (Unificada para evitar conflictos)
   useEffect(() => {
-    const rutinaGuardada = localStorage.getItem("rutinaMancuFit");
-    if (rutinaGuardada) {
-      setRutina(JSON.parse(rutinaGuardada));
-    }
+    const rutinaG = localStorage.getItem("rutinaMancuFit");
+    const historialG = localStorage.getItem("historialMancuFit");
+    
+    if (rutinaG) setRutina(JSON.parse(rutinaG));
+    if (historialG) setHistorial(JSON.parse(historialG));
   }, []);
 
   // Guardado automático
   useEffect(() => {
-    if (rutina) {
-      localStorage.setItem("rutinaMancuFit", JSON.stringify(rutina));
-    }
-  }, [rutina]);
+    if (rutina) localStorage.setItem("rutinaMancuFit", JSON.stringify(rutina));
+    localStorage.setItem("historialMancuFit", JSON.stringify(historial));
+  }, [rutina, historial]);
 
   const toggleDia = (dia) => {
     setDiasSeleccionados(prev => 
@@ -61,12 +62,8 @@ export default function App() {
     );
   };
 
-  const entrarRegistro = () => {
-    rutina ? setPantalla("checkRutina") : setPantalla("seleccionDias");
-  };
-
   const crearNuevaRutina = () => {
-    if(confirm("¿Seguro que quieres borrar todo y empezar de cero?")) {
+    if(confirm("¿Seguro que quieres borrar la rutina? El historial se mantendrá.")) {
         localStorage.removeItem("rutinaMancuFit");
         setRutina(null);
         setDiasSeleccionados([]);
@@ -75,7 +72,6 @@ export default function App() {
     }
   };
 
-  // FASE 4: Editar
   const actualizarEjercicio = (dia, index, campo, nuevoValor) => {
     setRutina(prevRutina => ({
       ...prevRutina,
@@ -85,11 +81,36 @@ export default function App() {
     }));
   };
 
-  // FASE 5: Marcar como hecho
   const toggleCompletado = (id) => {
     setCompletados(prev => 
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
+  };
+
+  // FASE 6: Finalizar y Guardar en Historial
+  const finalizarEntrenamiento = () => {
+    const ejerciciosLogrados = [];
+    Object.values(rutina).forEach(lista => {
+      const hechos = lista.filter(ej => completados.includes(ej.id));
+      ejerciciosLogrados.push(...hechos);
+    });
+
+    if (ejerciciosLogrados.length === 0) {
+      setModoEntreno(false);
+      return;
+    }
+
+    const nuevaSesion = {
+      id: crypto.randomUUID(),
+      fecha: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long' }),
+      hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      ejercicios: ejerciciosLogrados
+    };
+
+    setHistorial([nuevaSesion, ...historial]);
+    setModoEntreno(false);
+    setCompletados([]);
+    alert("¡Entrenamiento guardado! Revisa tu historial. 🏆");
   };
 
   function generarRutina() {
@@ -117,53 +138,65 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#00008A] to-black text-white flex flex-col items-center p-6 font-sans">
-      <h1 className="text-5xl font-extrabold mb-8 drop-shadow-2xl tracking-tight">MancuFit</h1>
+      <h1 className="text-5xl font-extrabold mb-8 drop-shadow-2xl tracking-tight italic">MancuFit</h1>
 
       {verCuerpo ? (
         <div className="flex flex-col items-center">
           <CuerpoHumano />
-          <button 
-            onClick={() => setVerCuerpo(false)}
-            className="mt-6 bg-gray-700 px-6 py-2 rounded-full hover:bg-gray-600 transition"
-          >
-            Volver al Menú
-          </button>
+          <button onClick={() => setVerCuerpo(false)} className="mt-6 bg-gray-700 px-6 py-2 rounded-full">Volver</button>
         </div>
       ) : (
         <>
+          {/* MENU PRINCIPAL */}
           {pantalla === "menu" && (
-            <div className="flex flex-col sm:flex-row gap-6">
-              <button
-                className="bg-gradient-to-b from-gray-700 to-black border border-gray-600 rounded-2xl px-8 py-4 shadow-xl hover:scale-105 transition-transform"
-                onClick={entrarRegistro}
-              >
-                Registro de ejercicios
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+              <button className="bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-blue-600 transition" onClick={() => (rutina ? setPantalla("checkRutina") : setPantalla("seleccionDias"))}>
+                <span className="block text-2xl mb-1">📋</span> Registro Rutina
               </button>
-              <button
-                className="bg-gradient-to-b from-gray-700 to-black border border-gray-600 rounded-2xl px-8 py-4 shadow-xl hover:scale-105 transition-transform"
-                onClick={() => setVerCuerpo(true)}
-              >
-                Cuerpo humano
+              <button className="bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-blue-600 transition" onClick={() => setVerCuerpo(true)}>
+                <span className="block text-2xl mb-1">👤</span> Cuerpo Humano
+              </button>
+              <button className="bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-orange-600 transition col-span-1 sm:col-span-2" onClick={() => setPantalla("historial")}>
+                <span className="block text-2xl mb-1">📈</span> Ver Historial ({historial.length})
               </button>
             </div>
           )}
 
+          {/* VISTA HISTORIAL */}
+          {pantalla === "historial" && (
+            <div className="w-full max-w-md space-y-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold">Historial 📈</h2>
+                <button onClick={() => setPantalla("menu")} className="text-sm text-gray-400">Volver</button>
+              </div>
+              {historial.length === 0 ? (
+                <p className="text-center text-gray-500 py-10">Aún no has guardado entrenamientos.</p>
+              ) : (
+                historial.map(sesion => (
+                  <div key={sesion.id} className="bg-white/5 border border-white/10 p-4 rounded-2xl">
+                    <div className="flex justify-between text-blue-400 font-bold mb-2">
+                      <span>{sesion.fecha}</span>
+                      <span>{sesion.hora}</span>
+                    </div>
+                    <ul className="text-sm space-y-1 text-gray-300">
+                      {sesion.ejercicios.map((ej, i) => (
+                        <li key={i}>✓ {ej.nombre} ({ej.series}x{ej.reps})</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+              )}
+              <button onClick={() => {if(confirm("¿Borrar historial?")) setHistorial([])}} className="w-full text-xs text-red-500/50 pt-4">Borrar todo el historial</button>
+            </div>
+          )}
+
+          {/* ... (Resto de pantallas: seleccionDias, checkRutina se mantienen igual) ... */}
           {pantalla === "checkRutina" && (
             <div className="bg-black/50 backdrop-blur-md p-8 rounded-3xl text-center border border-white/10">
               <p className="text-xl mb-6 font-light">Ya tienes una rutina guardada 💪</p>
               <div className="flex gap-4">
-                <button
-                  className="bg-green-600 px-6 py-3 rounded-xl font-bold hover:bg-green-500 transition"
-                  onClick={() => setPantalla("mostrarRutina")}
-                >
-                  Continuar
-                </button>
-                <button
-                  className="bg-red-600/80 px-6 py-3 rounded-xl font-bold hover:bg-red-500 transition"
-                  onClick={crearNuevaRutina}
-                >
-                  Reiniciar
-                </button>
+                <button className="bg-green-600 px-6 py-3 rounded-xl font-bold" onClick={() => setPantalla("mostrarRutina")}>Continuar</button>
+                <button className="bg-red-600/80 px-6 py-3 rounded-xl font-bold" onClick={crearNuevaRutina}>Reiniciar</button>
               </div>
             </div>
           )}
@@ -173,105 +206,47 @@ export default function App() {
               <h2 className="text-2xl font-bold mb-6 text-center">¿Qué días entrenas?</h2>
               <div className="grid grid-cols-2 gap-3 mb-8">
                 {DIAS_SEMANA.map((dia) => (
-                  <button
-                    key={dia}
-                    onClick={() => toggleDia(dia)}
-                    className={`py-3 rounded-xl font-medium transition-all ${
-                      diasSeleccionados.includes(dia)
-                        ? "bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.5)] scale-105"
-                        : "bg-gray-800/50 hover:bg-gray-700"
-                    }`}
-                  >
-                    {dia}
-                  </button>
+                  <button key={dia} onClick={() => toggleDia(dia)} className={`py-3 rounded-xl font-medium transition-all ${diasSeleccionados.includes(dia) ? "bg-blue-600 scale-105" : "bg-gray-800/50"}`}>{dia}</button>
                 ))}
               </div>
-              <button
-                disabled={diasSeleccionados.length === 0}
-                className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
-                  diasSeleccionados.length === 0
-                    ? "bg-gray-600 opacity-50 cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-400"
-                }`}
-                onClick={generarRutina}
-              >
-                Generar mi rutina
-              </button>
+              <button disabled={diasSeleccionados.length === 0} className="w-full py-4 rounded-xl font-bold bg-blue-500" onClick={generarRutina}>Generar mi rutina</button>
             </div>
           )}
 
+          {/* MOSTRAR RUTINA CON FASE 5 & 6 */}
           {pantalla === "mostrarRutina" && rutina && (
             <div className="w-full max-w-4xl space-y-6">
-              <div className="flex flex-col gap-4 sticky top-0 bg-[#00008A]/80 backdrop-blur-lg p-4 rounded-2xl z-10 border border-white/10">
+              <div className="flex flex-col gap-4 sticky top-0 bg-[#00008A]/90 backdrop-blur-lg p-4 rounded-2xl z-10 border border-white/10 shadow-xl">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-bold italic">TU PLAN SEMANAL</h2>
-                  <button onClick={() => setPantalla("menu")} className="text-gray-400 hover:text-white underline text-sm">Menú</button>
+                  <h2 className="text-2xl font-bold">MI PLAN</h2>
+                  <button onClick={() => setPantalla("menu")} className="text-gray-400 text-sm">Cerrar</button>
                 </div>
-                
-                {/* BOTÓN MODO ENTRENO */}
                 <button 
-                  onClick={() => {
-                    setModoEntreno(!modoEntreno);
-                    if (!modoEntreno) setCompletados([]);
-                  }}
-                  className={`w-full py-3 rounded-xl font-black uppercase tracking-widest transition-all ${
-                    modoEntreno 
-                      ? "bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)]" 
-                      : "bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.4)]"
-                  }`}
+                  onClick={modoEntreno ? finalizarEntrenamiento : () => setModoEntreno(true)}
+                  className={`w-full py-4 rounded-xl font-black uppercase tracking-tighter transition-all ${modoEntreno ? "bg-red-500 animate-pulse" : "bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.4)]"}`}
                 >
-                  {modoEntreno ? "⏹ Detener Entrenamiento" : "▶ Empezar a Entrenar"}
+                  {modoEntreno ? "🏁 Finalizar y Guardar" : "▶ Empezar Entreno"}
                 </button>
               </div>
               
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2">
                 {Object.entries(rutina).map(([dia, ejercicios]) => (
-                  <div key={dia} className={`bg-white/5 border border-white/10 p-5 rounded-3xl transition-opacity ${modoEntreno ? "opacity-100" : "opacity-90"}`}>
-                    <h3 className="font-black text-blue-400 text-xl mb-4 italic uppercase tracking-wider border-b border-white/10 pb-2">{dia}</h3>
+                  <div key={dia} className="bg-white/5 border border-white/10 p-5 rounded-3xl">
+                    <h3 className="font-black text-blue-400 text-xl mb-4 italic uppercase border-b border-white/10 pb-2">{dia}</h3>
                     <div className="space-y-4">
                       {ejercicios.map((ej, index) => {
                         const esCompletado = completados.includes(ej.id);
                         return (
-                          <div key={ej.id || index} className={`flex flex-col gap-2 p-3 rounded-2xl transition-all border ${
-                            esCompletado ? "bg-green-500/20 border-green-500/50 opacity-50" : "bg-black/20 border-white/5"
-                          }`}>
-                            <div className="flex justify-between items-start gap-2">
-                              <input
-                                disabled={modoEntreno}
-                                className={`bg-transparent border-none font-bold text-white focus:ring-2 focus:ring-blue-500 rounded px-1 w-full ${esCompletado ? "line-through text-gray-500" : ""}`}
-                                value={ej.nombre}
-                                onChange={(e) => actualizarEjercicio(dia, index, 'nombre', e.target.value)}
-                              />
+                          <div key={ej.id} className={`flex flex-col gap-2 p-3 rounded-2xl transition-all border ${esCompletado ? "bg-green-500/20 border-green-500/50 opacity-50" : "bg-black/20 border-white/5"}`}>
+                            <div className="flex justify-between items-center gap-2">
+                              <input disabled={modoEntreno} className={`bg-transparent border-none font-bold text-white w-full ${esCompletado ? "line-through text-gray-500" : ""}`} value={ej.nombre} onChange={(e) => actualizarEjercicio(dia, index, 'nombre', e.target.value)} />
                               {modoEntreno && (
-                                <button 
-                                  onClick={() => toggleCompletado(ej.id)}
-                                  className={`min-w-[40px] h-10 rounded-full flex items-center justify-center transition-all ${
-                                    esCompletado ? "bg-green-500 text-black scale-90" : "bg-white/10 text-white"
-                                  }`}
-                                >
-                                  {esCompletado ? "✓" : "○"}
-                                </button>
+                                <button onClick={() => toggleCompletado(ej.id)} className={`min-w-[40px] h-10 rounded-full flex items-center justify-center ${esCompletado ? "bg-green-500 text-black" : "bg-white/10"}`}>{esCompletado ? "✓" : "○"}</button>
                               )}
                             </div>
-                            <div className="flex gap-4 text-sm font-mono">
-                              <div className="flex items-center gap-2">
-                                <span className="text-gray-500">SERIES</span>
-                                <input
-                                  disabled={modoEntreno}
-                                  className="bg-gray-900/50 w-10 text-center rounded border border-white/10 py-1"
-                                  value={ej.series}
-                                  onChange={(e) => actualizarEjercicio(dia, index, 'series', e.target.value)}
-                                />
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-gray-500">REPS</span>
-                                <input
-                                  disabled={modoEntreno}
-                                  className="bg-gray-900/50 w-20 text-center rounded border border-white/10 py-1"
-                                  value={ej.reps}
-                                  onChange={(e) => actualizarEjercicio(dia, index, 'reps', e.target.value)}
-                                />
-                              </div>
+                            <div className="flex gap-4 text-xs font-mono text-gray-400">
+                              <span>S: <input disabled={modoEntreno} className="bg-gray-900 w-8 text-center rounded" value={ej.series} onChange={(e) => actualizarEjercicio(dia, index, 'series', e.target.value)} /></span>
+                              <span>R: <input disabled={modoEntreno} className="bg-gray-900 w-16 text-center rounded" value={ej.reps} onChange={(e) => actualizarEjercicio(dia, index, 'reps', e.target.value)} /></span>
                             </div>
                           </div>
                         );
@@ -280,13 +255,6 @@ export default function App() {
                   </div>
                 ))}
               </div>
-
-              <button 
-                onClick={crearNuevaRutina}
-                className="w-full py-4 text-gray-500 hover:text-red-400 transition-colors text-xs uppercase tracking-widest mt-12"
-              >
-                Resetear aplicación por completo
-              </button>
             </div>
           )}
         </>
