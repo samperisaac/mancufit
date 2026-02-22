@@ -36,7 +36,11 @@ export default function App() {
   const [diasSeleccionados, setDiasSeleccionados] = useState([]);
   const [verCuerpo, setVerCuerpo] = useState(false);
 
-  // 1. CARGA INICIAL: Solo una vez al montar el componente
+  // FASE 5: Estados de entrenamiento
+  const [modoEntreno, setModoEntreno] = useState(false);
+  const [completados, setCompletados] = useState([]);
+
+  // Carga inicial
   useEffect(() => {
     const rutinaGuardada = localStorage.getItem("rutinaMancuFit");
     if (rutinaGuardada) {
@@ -44,7 +48,7 @@ export default function App() {
     }
   }, []);
 
-  // 2. GUARDADO AUTOMÁTICO: Cada vez que la rutina cambie
+  // Guardado automático
   useEffect(() => {
     if (rutina) {
       localStorage.setItem("rutinaMancuFit", JSON.stringify(rutina));
@@ -62,13 +66,16 @@ export default function App() {
   };
 
   const crearNuevaRutina = () => {
-    localStorage.removeItem("rutinaMancuFit");
-    setRutina(null);
-    setDiasSeleccionados([]);
-    setPantalla("seleccionDias");
+    if(confirm("¿Seguro que quieres borrar todo y empezar de cero?")) {
+        localStorage.removeItem("rutinaMancuFit");
+        setRutina(null);
+        setDiasSeleccionados([]);
+        setPantalla("seleccionDias");
+        setModoEntreno(false);
+    }
   };
 
-  // FASE 4: Función de edición específica para objeto por días
+  // FASE 4: Editar
   const actualizarEjercicio = (dia, index, campo, nuevoValor) => {
     setRutina(prevRutina => ({
       ...prevRutina,
@@ -78,6 +85,13 @@ export default function App() {
     }));
   };
 
+  // FASE 5: Marcar como hecho
+  const toggleCompletado = (id) => {
+    setCompletados(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
   function generarRutina() {
     let nuevaRutina = {};
     const todasCategorias = Object.values(BASE_EJERCICIOS).flat();
@@ -85,7 +99,7 @@ export default function App() {
     diasSeleccionados.forEach((dia) => {
       let ejerciciosDia = Object.values(BASE_EJERCICIOS).map(cat => ({
         ...cat[Math.floor(Math.random() * cat.length)],
-        id: crypto.randomUUID() // Añadimos ID único por si acaso
+        id: crypto.randomUUID() 
       }));
 
       while (ejerciciosDia.length < 8) {
@@ -187,53 +201,91 @@ export default function App() {
           )}
 
           {pantalla === "mostrarRutina" && rutina && (
-            <div className="w-full max-w-3xl space-y-6">
-              <div className="flex justify-between items-center px-2">
-                <h2 className="text-2xl font-bold">Tu Plan Semanal 💪</h2>
-                <button onClick={() => setPantalla("menu")} className="text-sm text-gray-400 hover:text-white">Cerrar</button>
+            <div className="w-full max-w-4xl space-y-6">
+              <div className="flex flex-col gap-4 sticky top-0 bg-[#00008A]/80 backdrop-blur-lg p-4 rounded-2xl z-10 border border-white/10">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-bold italic">TU PLAN SEMANAL</h2>
+                  <button onClick={() => setPantalla("menu")} className="text-gray-400 hover:text-white underline text-sm">Menú</button>
+                </div>
+                
+                {/* BOTÓN MODO ENTRENO */}
+                <button 
+                  onClick={() => {
+                    setModoEntreno(!modoEntreno);
+                    if (!modoEntreno) setCompletados([]);
+                  }}
+                  className={`w-full py-3 rounded-xl font-black uppercase tracking-widest transition-all ${
+                    modoEntreno 
+                      ? "bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)]" 
+                      : "bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.4)]"
+                  }`}
+                >
+                  {modoEntreno ? "⏹ Detener Entrenamiento" : "▶ Empezar a Entrenar"}
+                </button>
               </div>
               
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
                 {Object.entries(rutina).map(([dia, ejercicios]) => (
-                  <div key={dia} className="bg-white/5 border border-white/10 p-5 rounded-2xl">
-                    <h3 className="font-bold text-blue-400 text-lg mb-4 border-b border-white/10 pb-1">{dia}</h3>
+                  <div key={dia} className={`bg-white/5 border border-white/10 p-5 rounded-3xl transition-opacity ${modoEntreno ? "opacity-100" : "opacity-90"}`}>
+                    <h3 className="font-black text-blue-400 text-xl mb-4 italic uppercase tracking-wider border-b border-white/10 pb-2">{dia}</h3>
                     <div className="space-y-4">
-                      {ejercicios.map((ej, index) => (
-                        <div key={index} className="flex flex-col gap-2 p-2 rounded-lg hover:bg-white/5 transition">
-                          <input
-                            className="bg-transparent border-none font-medium text-white focus:ring-1 focus:ring-blue-500 rounded px-1 w-full"
-                            value={ej.nombre}
-                            onChange={(e) => actualizarEjercicio(dia, index, 'nombre', e.target.value)}
-                          />
-                          <div className="flex gap-4 text-sm text-gray-400">
-                            <div className="flex items-center gap-1">
-                              <span>S:</span>
+                      {ejercicios.map((ej, index) => {
+                        const esCompletado = completados.includes(ej.id);
+                        return (
+                          <div key={ej.id || index} className={`flex flex-col gap-2 p-3 rounded-2xl transition-all border ${
+                            esCompletado ? "bg-green-500/20 border-green-500/50 opacity-50" : "bg-black/20 border-white/5"
+                          }`}>
+                            <div className="flex justify-between items-start gap-2">
                               <input
-                                className="bg-gray-800 w-10 text-center rounded border-none p-1 focus:ring-1 focus:ring-blue-500"
-                                value={ej.series}
-                                onChange={(e) => actualizarEjercicio(dia, index, 'series', e.target.value)}
+                                disabled={modoEntreno}
+                                className={`bg-transparent border-none font-bold text-white focus:ring-2 focus:ring-blue-500 rounded px-1 w-full ${esCompletado ? "line-through text-gray-500" : ""}`}
+                                value={ej.nombre}
+                                onChange={(e) => actualizarEjercicio(dia, index, 'nombre', e.target.value)}
                               />
+                              {modoEntreno && (
+                                <button 
+                                  onClick={() => toggleCompletado(ej.id)}
+                                  className={`min-w-[40px] h-10 rounded-full flex items-center justify-center transition-all ${
+                                    esCompletado ? "bg-green-500 text-black scale-90" : "bg-white/10 text-white"
+                                  }`}
+                                >
+                                  {esCompletado ? "✓" : "○"}
+                                </button>
+                              )}
                             </div>
-                            <div className="flex items-center gap-1">
-                              <span>R:</span>
-                              <input
-                                className="bg-gray-800 w-20 text-center rounded border-none p-1 focus:ring-1 focus:ring-blue-500"
-                                value={ej.reps}
-                                onChange={(e) => actualizarEjercicio(dia, index, 'reps', e.target.value)}
-                              />
+                            <div className="flex gap-4 text-sm font-mono">
+                              <div className="flex items-center gap-2">
+                                <span className="text-gray-500">SERIES</span>
+                                <input
+                                  disabled={modoEntreno}
+                                  className="bg-gray-900/50 w-10 text-center rounded border border-white/10 py-1"
+                                  value={ej.series}
+                                  onChange={(e) => actualizarEjercicio(dia, index, 'series', e.target.value)}
+                                />
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-gray-500">REPS</span>
+                                <input
+                                  disabled={modoEntreno}
+                                  className="bg-gray-900/50 w-20 text-center rounded border border-white/10 py-1"
+                                  value={ej.reps}
+                                  onChange={(e) => actualizarEjercicio(dia, index, 'reps', e.target.value)}
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
               </div>
+
               <button 
                 onClick={crearNuevaRutina}
-                className="w-full py-3 bg-red-900/20 text-red-400 rounded-xl border border-red-900/30 hover:bg-red-900/40 transition mt-8"
+                className="w-full py-4 text-gray-500 hover:text-red-400 transition-colors text-xs uppercase tracking-widest mt-12"
               >
-                Borrar rutina y empezar de cero
+                Resetear aplicación por completo
               </button>
             </div>
           )}
