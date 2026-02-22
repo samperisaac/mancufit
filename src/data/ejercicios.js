@@ -1,4 +1,4 @@
-export const BASE_EJERCICIOS = {
+export const ejerciciosDB = {
   pecho: [
     { 
       nombre: "Press con mancuernas", 
