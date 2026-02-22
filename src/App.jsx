@@ -234,17 +234,41 @@ export default function App() {
             </div>
           )}
 
-          {pantalla === "seleccionDias" && (
-            <div className="bg-white/5 p-8 rounded-3xl w-full max-w-md border border-white/10">
-              <h2 className="text-2xl font-bold mb-6 text-center italic">PLANIFICA TU SEMANA</h2>
-              <div className="grid grid-cols-2 gap-3 mb-8">
-                {DIAS_SEMANA.map((dia) => (
-                  <button key={dia} onClick={() => toggleDia(dia)} className={`py-4 rounded-2xl font-bold transition-all ${diasSeleccionados.includes(dia) ? "bg-blue-600" : "bg-white/5 border border-white/5"}`}>{dia}</button>
-                ))}
-              </div>
-              <button disabled={diasSeleccionados.length === 0} className="w-full py-5 rounded-2xl font-black bg-blue-500 shadow-lg shadow-blue-500/20" onClick={generarRutina}>GENERAR ENTRENAMIENTO</button>
-            </div>
-          )}
+{pantalla === "seleccionDias" && (
+  <div className="bg-white/5 p-8 rounded-3xl w-full max-w-md border border-white/10 relative">
+    {/* BOTÓN ATRÁS */}
+    <button 
+      onClick={() => setPantalla("menu")} 
+      className="absolute top-4 right-4 text-gray-400 hover:text-white text-sm border border-white/10 px-3 py-1 rounded-full transition-all"
+    >
+      ✕ Cancelar
+    </button>
+
+    <h2 className="text-2xl font-bold mb-6 text-center italic uppercase tracking-tighter text-blue-500">
+      Configura tu plan
+    </h2>
+    
+    <div className="grid grid-cols-2 gap-3 mb-8">
+      {DIAS_SEMANA.map((dia) => (
+        <button 
+          key={dia} 
+          onClick={() => toggleDia(dia)} 
+          className={`py-4 rounded-2xl font-bold transition-all ${diasSeleccionados.includes(dia) ? "bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.4)]" : "bg-white/5 border border-white/5 text-gray-400"}`}
+        >
+          {dia}
+        </button>
+      ))}
+    </div>
+    
+    <button 
+      disabled={diasSeleccionados.length === 0} 
+      className="w-full py-5 rounded-2xl font-black bg-blue-500 shadow-lg shadow-blue-500/20 disabled:opacity-30 disabled:grayscale transition-all" 
+      onClick={generarRutina}
+    >
+      GENERAR ENTRENAMIENTO
+    </button>
+  </div>
+)}
 
           {pantalla === "mostrarRutina" && rutina && (
             <div className="w-full max-w-4xl space-y-6">

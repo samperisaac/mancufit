@@ -6,12 +6,12 @@ const zonas = [
     // VISTA FRENTE (Izquierda de la imagen)
     { id: 'pecho', nombre: 'Pecho', top: '24%', left: '25.5%' }, // Centrado en pectorales
     { id: 'abdomen', nombre: 'Abdomen', top: '38%', left: '25.5%' }, // Centrado en el "six-pack"
-    { id: 'brazos', nombre: 'Bíceps', top: '30%', left: '13%' },
+    { id: 'brazos', nombre: 'Bíceps', top: '30%', left: '16%' }, // De 14% a 16% (más adentro)
     { id: 'piernas', nombre: 'Cuádriceps', top: '58%', left: '20%' },
     
     // VISTA ESPALDA (Derecha de la imagen)
     { id: 'espalda', nombre: 'Espalda', top: '26%', left: '74.5%' }, // Centrado en la columna/dorsales
-    { id: 'brazos', nombre: 'Tríceps', top: '30%', left: '87%' },
+    { id: 'brazos', nombre: 'Tríceps', top: '30%', left: '84%' }, // De 86% a 84% (más adentro)
     { id: 'piernas', nombre: 'Glúteo', top: '48%', left: '74.5%' }, // Centrado en el glúteo
   ];
 
