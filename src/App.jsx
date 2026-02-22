@@ -45,6 +45,7 @@ export default function App() {
   const [modoEntreno, setModoEntreno] = useState(false);
   const [completados, setCompletados] = useState([]);
   const [historial, setHistorial] = useState([]);
+  const [musculoSeleccionado, setMusculoSeleccionado] = useState(null);
 
   useEffect(() => {
     const rutinaG = localStorage.getItem("rutinaMancuFit");
@@ -113,6 +114,11 @@ export default function App() {
     alert("¡Entrenamiento guardado! 🏆");
   };
 
+  // NUEVO: Función para manejar el clic en el cuerpo
+  const manejarSeleccionMusculo = (idMusculo) => {
+    setMusculoSeleccionado(idMusculo);
+  };
+
   function generarRutina() {
     let nuevaRutina = {};
     const todasCategorias = Object.values(BASE_EJERCICIOS).flat();
@@ -140,12 +146,54 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-[#1e1e2e] to-black text-white flex flex-col items-center p-6 font-sans">
       <h1 className="text-5xl font-extrabold mb-8 italic tracking-tighter text-blue-500">MancuFit</h1>
 
+{/* VISTA: CUERPO HUMANO INTERACTIVO */}
       {verCuerpo ? (
-        <div className="flex flex-col items-center">
-          <CuerpoHumano />
-          <button onClick={() => setVerCuerpo(false)} className="mt-6 bg-gray-800 px-8 py-3 rounded-full border border-white/10">Volver al Menú</button>
+        <div className="w-full max-w-md flex flex-col items-center gap-6">
+          <div className="flex justify-between w-full items-center">
+              <h2 className="text-2xl font-black italic text-blue-500">ANATOMÍA</h2>
+              <button 
+                onClick={() => {setVerCuerpo(false); setMusculoSeleccionado(null);}} 
+                className="text-gray-400 text-sm border border-white/10 px-4 py-1 rounded-full"
+              >
+                Cerrar
+              </button>
+          </div>
+
+          {!musculoSeleccionado ? (
+            /* Si no hay músculo seleccionado, mostramos el mapa del cuerpo */
+            <CuerpoHumano alSeleccionarMusculo={manejarSeleccionMusculo} />
+          ) : (
+            /* Si el usuario tocó un músculo, mostramos la lista de ejercicios de casa */
+            <div className="w-full">
+              <button 
+                onClick={() => setMusculoSeleccionado(null)}
+                className="mb-4 text-blue-400 text-sm flex items-center gap-2 font-bold"
+              >
+                ← Volver al cuerpo
+              </button>
+              
+              <div className="bg-white/5 border border-white/10 rounded-3xl p-6 shadow-2xl">
+                <h3 className="text-2xl font-black text-blue-400 uppercase mb-4 italic">
+                  {musculoSeleccionado}
+                </h3>
+                <div className="space-y-3">
+                  {BASE_EJERCICIOS[musculoSeleccionado]?.map((ej, i) => (
+                    <div key={i} className="bg-black/40 p-4 rounded-2xl border border-white/5">
+                      <p className="font-bold text-white text-lg">{ej.nombre}</p>
+                      <div className="flex gap-4 mt-2">
+                        <span className="text-[10px] text-gray-500 font-bold uppercase">Series: {ej.series}</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase">Reps: {ej.reps}</span>
+                        {ej.peso !== "0" && <span className="text-[10px] text-blue-400 font-bold uppercase">Sugerido: {ej.peso}kg</span>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
+
         <>
           {pantalla === "menu" && (
             <div className="grid grid-cols-1 gap-4 w-full max-w-sm">
