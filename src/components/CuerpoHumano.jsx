@@ -4,18 +4,21 @@ export default function CuerpoHumano({ alSeleccionarMusculo }) {
   const [vistaActiva, setVistaActiva] = useState('frontal');
 
   // COORDENADAS PRECISAS PARA TUS IMÁGENES RECORTADAS
-  const zonasFrontal = [
-    { id: 'pecho', nombre: 'PECHO', top: '25%', left: '40%', side: 'left' },
-    { id: 'brazos', nombre: 'BÍCEPS', top: '30%', left: '72%', side: 'right' },
+const zonasFrontal = [
+    { id: 'hombros', nombre: 'HOMBROS', top: '22%', left: '28%', side: 'left' },
+    { id: 'pecho', nombre: 'PECHO', top: '25%', left: '50%', side: 'center' },
+    { id: 'brazos', nombre: 'BÍCEPS', top: '32%', left: '72%', side: 'right' },
     { id: 'abdomen', nombre: 'ABDOMEN', top: '40%', left: '50%', side: 'center' },
     { id: 'piernas', nombre: 'CUÁDRICEPS', top: '55%', left: '43%', side: 'center' },
   ];
 
   const zonasTrasera = [
-    { id: 'espalda', nombre: 'ESPALDA', top: '22%', left: '40%', side: 'left' },
+    { id: 'hombros', nombre: 'HOMBROS', top: '22%', left: '25%', side: 'left' },
+
+    { id: 'espalda', nombre: 'ESPALDA', top: '22%', left: '50%', side: 'center' },
     { id: 'gemelos', nombre: 'GEMELOS', top: '80%', left: '65%', side: 'right' },
     { id: 'piernas', nombre: 'GLÚTEO', top: '50%', left: '55%', side: 'center' },
-    { id: 'brazos', nombre: 'TRÍCEPS', top: '30%', left: '70%', side: 'center' },
+    { id: 'brazos', nombre: 'TRÍCEPS', top: '30%', left: '75%', side: 'right' },
     { id: 'piernas', nombre: 'CUÁDRICEPS', top: '62%', left: '40%', side: 'center' },
   ];
 
