@@ -2,17 +2,17 @@ import React from 'react';
 
 export default function CuerpoHumano({ alSeleccionarMusculo }) {
   // Coordenadas precisas para la imagen de frente y espalda combinada
-  const zonas = [
+const zonas = [
     // VISTA FRENTE (Izquierda de la imagen)
-    { id: 'pecho', nombre: 'Pecho', top: '23%', left: '26%' },
-    { id: 'abdomen', nombre: 'Abdomen', top: '35%', left: '26%' },
-    { id: 'brazos', nombre: 'Bíceps', top: '30%', left: '14%' },
-    { id: 'piernas', nombre: 'Cuádriceps', top: '55%', left: '20%' },
+    { id: 'pecho', nombre: 'Pecho', top: '24%', left: '25.5%' }, // Centrado en pectorales
+    { id: 'abdomen', nombre: 'Abdomen', top: '38%', left: '25.5%' }, // Centrado en el "six-pack"
+    { id: 'brazos', nombre: 'Bíceps', top: '30%', left: '13%' },
+    { id: 'piernas', nombre: 'Cuádriceps', top: '58%', left: '20%' },
     
     // VISTA ESPALDA (Derecha de la imagen)
-    { id: 'espalda', nombre: 'Espalda', top: '25%', left: '74%' },
-    { id: 'brazos', nombre: 'Tríceps', top: '30%', left: '86%' },
-    { id: 'piernas', nombre: 'Isquios/Glúteo', top: '55%', left: '74%' },
+    { id: 'espalda', nombre: 'Espalda', top: '26%', left: '74.5%' }, // Centrado en la columna/dorsales
+    { id: 'brazos', nombre: 'Tríceps', top: '30%', left: '87%' },
+    { id: 'piernas', nombre: 'Glúteo', top: '48%', left: '74.5%' }, // Centrado en el glúteo
   ];
 
   return (
