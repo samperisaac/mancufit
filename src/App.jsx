@@ -64,10 +64,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-slate-100 flex flex-col items-center p-4 font-sans">
+    <div className="min-h-screen bg-transparent text-slate-100 flex flex-col items-center p-4 font-sans">
       
       {/* HEADER DINÁMICO */}
-      <header className="w-full max-w-md flex flex-col items-center my-8">
+      <header className="w-full max-w-md flex flex-col items-center pt-10 mb-12">
         <h1 className="text-5xl font-black italic tracking-tighter text-white drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]">
           MANCU<span className="text-blue-500">FIT</span>
         </h1>
