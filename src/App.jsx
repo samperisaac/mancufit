@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CuerpoHumano from "./CuerpoHumano";
 
-// Base de datos de ejercicios fuera del componente para evitar re-renderizados innecesarios
 const BASE_EJERCICIOS = {
   pecho: [
     { nombre: "Flexiones", series: 3, reps: "12-15" },
@@ -37,13 +36,20 @@ export default function App() {
   const [diasSeleccionados, setDiasSeleccionados] = useState([]);
   const [verCuerpo, setVerCuerpo] = useState(false);
 
-  // Cargar rutina desde localStorage al montar el componente
+  // 1. CARGA INICIAL: Solo una vez al montar el componente
   useEffect(() => {
     const rutinaGuardada = localStorage.getItem("rutinaMancuFit");
     if (rutinaGuardada) {
       setRutina(JSON.parse(rutinaGuardada));
     }
   }, []);
+
+  // 2. GUARDADO AUTOMÁTICO: Cada vez que la rutina cambie
+  useEffect(() => {
+    if (rutina) {
+      localStorage.setItem("rutinaMancuFit", JSON.stringify(rutina));
+    }
+  }, [rutina]);
 
   const toggleDia = (dia) => {
     setDiasSeleccionados(prev => 
@@ -62,36 +68,43 @@ export default function App() {
     setPantalla("seleccionDias");
   };
 
-  const generarRutina = () => {
+  // FASE 4: Función de edición específica para objeto por días
+  const actualizarEjercicio = (dia, index, campo, nuevoValor) => {
+    setRutina(prevRutina => ({
+      ...prevRutina,
+      [dia]: prevRutina[dia].map((ej, i) => 
+        i === index ? { ...ej, [campo]: nuevoValor } : ej
+      )
+    }));
+  };
+
+  function generarRutina() {
     let nuevaRutina = {};
     const todasCategorias = Object.values(BASE_EJERCICIOS).flat();
 
     diasSeleccionados.forEach((dia) => {
-      // 1. Añadir uno de cada categoría para asegurar variedad
-      let ejerciciosDia = Object.values(BASE_EJERCICIOS).map(cat => 
-        cat[Math.floor(Math.random() * cat.length)]
-      );
+      let ejerciciosDia = Object.values(BASE_EJERCICIOS).map(cat => ({
+        ...cat[Math.floor(Math.random() * cat.length)],
+        id: crypto.randomUUID() // Añadimos ID único por si acaso
+      }));
 
-      // 2. Rellenar hasta 8 ejercicios sin repetir nombres
       while (ejerciciosDia.length < 8) {
         let candidato = todasCategorias[Math.floor(Math.random() * todasCategorias.length)];
         if (!ejerciciosDia.some(e => e.nombre === candidato.nombre)) {
-          ejerciciosDia.push(candidato);
+          ejerciciosDia.push({ ...candidato, id: crypto.randomUUID() });
         }
       }
       nuevaRutina[dia] = ejerciciosDia;
     });
 
     setRutina(nuevaRutina);
-    localStorage.setItem("rutinaMancuFit", JSON.stringify(nuevaRutina));
     setPantalla("mostrarRutina");
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#00008A] to-black text-white flex flex-col items-center p-6 font-sans">
       <h1 className="text-5xl font-extrabold mb-8 drop-shadow-2xl tracking-tight">MancuFit</h1>
 
-      {/* VISTA: CUERPO HUMANO */}
       {verCuerpo ? (
         <div className="flex flex-col items-center">
           <CuerpoHumano />
@@ -104,7 +117,6 @@ export default function App() {
         </div>
       ) : (
         <>
-          {/* MENU PRINCIPAL */}
           {pantalla === "menu" && (
             <div className="flex flex-col sm:flex-row gap-6">
               <button
@@ -122,7 +134,6 @@ export default function App() {
             </div>
           )}
 
-          {/* CHECK RUTINA EXISTENTE */}
           {pantalla === "checkRutina" && (
             <div className="bg-black/50 backdrop-blur-md p-8 rounded-3xl text-center border border-white/10">
               <p className="text-xl mb-6 font-light">Ya tienes una rutina guardada 💪</p>
@@ -143,7 +154,6 @@ export default function App() {
             </div>
           )}
 
-          {/* SELECCIÓN DE DÍAS */}
           {pantalla === "seleccionDias" && (
             <div className="bg-black/50 backdrop-blur-md p-8 rounded-3xl w-full max-w-md border border-white/10">
               <h2 className="text-2xl font-bold mb-6 text-center">¿Qué días entrenas?</h2>
@@ -176,32 +186,52 @@ export default function App() {
             </div>
           )}
 
-          {/* MOSTRAR RUTINA */}
           {pantalla === "mostrarRutina" && rutina && (
-            <div className="w-full max-w-2xl space-y-6">
+            <div className="w-full max-w-3xl space-y-6">
               <div className="flex justify-between items-center px-2">
                 <h2 className="text-2xl font-bold">Tu Plan Semanal 💪</h2>
                 <button onClick={() => setPantalla("menu")} className="text-sm text-gray-400 hover:text-white">Cerrar</button>
               </div>
               
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2">
                 {Object.entries(rutina).map(([dia, ejercicios]) => (
-                  <div key={dia} className="bg-white/5 border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition">
-                    <h3 className="font-bold text-blue-400 text-lg mb-3 border-b border-white/10 pb-1">{dia}</h3>
-                    <ul className="space-y-3">
+                  <div key={dia} className="bg-white/5 border border-white/10 p-5 rounded-2xl">
+                    <h3 className="font-bold text-blue-400 text-lg mb-4 border-b border-white/10 pb-1">{dia}</h3>
+                    <div className="space-y-4">
                       {ejercicios.map((ej, index) => (
-                        <li key={index} className="flex flex-col">
-                          <span className="text-white font-medium">• {ej.nombre}</span>
-                          <span className="text-gray-400 text-xs ml-3">{ej.series} series x {ej.reps} reps</span>
-                        </li>
+                        <div key={index} className="flex flex-col gap-2 p-2 rounded-lg hover:bg-white/5 transition">
+                          <input
+                            className="bg-transparent border-none font-medium text-white focus:ring-1 focus:ring-blue-500 rounded px-1 w-full"
+                            value={ej.nombre}
+                            onChange={(e) => actualizarEjercicio(dia, index, 'nombre', e.target.value)}
+                          />
+                          <div className="flex gap-4 text-sm text-gray-400">
+                            <div className="flex items-center gap-1">
+                              <span>S:</span>
+                              <input
+                                className="bg-gray-800 w-10 text-center rounded border-none p-1 focus:ring-1 focus:ring-blue-500"
+                                value={ej.series}
+                                onChange={(e) => actualizarEjercicio(dia, index, 'series', e.target.value)}
+                              />
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <span>R:</span>
+                              <input
+                                className="bg-gray-800 w-20 text-center rounded border-none p-1 focus:ring-1 focus:ring-blue-500"
+                                value={ej.reps}
+                                onChange={(e) => actualizarEjercicio(dia, index, 'reps', e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 ))}
               </div>
               <button 
                 onClick={crearNuevaRutina}
-                className="w-full py-3 bg-red-900/30 text-red-400 rounded-xl border border-red-900/50 hover:bg-red-900/50 transition"
+                className="w-full py-3 bg-red-900/20 text-red-400 rounded-xl border border-red-900/30 hover:bg-red-900/40 transition mt-8"
               >
                 Borrar rutina y empezar de cero
               </button>
