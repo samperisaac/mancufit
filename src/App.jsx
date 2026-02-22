@@ -142,14 +142,29 @@ export default function App() {
             </div>
           )}
 
-          {/* PANTALLA: MOSTRAR RUTINA */}
+{/* PANTALLA: MOSTRAR RUTINA */}
           {pantalla === "mostrarRutina" && rutina && (
             <div className="space-y-6 animate-in fade-in pb-20">
               <div className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl p-4 border border-white/10 rounded-3xl mb-4 shadow-2xl">
                 <div className="flex justify-between items-center mb-4 px-2">
                   <h2 className="font-black italic text-blue-500 uppercase text-xs tracking-widest">Sesión Activa</h2>
-                  <button onClick={() => setPantalla("menu")} className="text-[10px] font-black text-slate-500 uppercase">✕ Menú</button>
+                  <div className="flex gap-3">
+                    {/* BOTÓN PARA REINICIAR TODO EL PLAN */}
+                    <button 
+                      onClick={() => {
+                        if(confirm("¿Seguro que quieres borrar toda la rutina y crear una nueva?")) {
+                          setRutina(null);
+                          setPantalla("seleccionDias");
+                        }
+                      }} 
+                      className="text-[9px] font-black text-red-500/70 uppercase border border-red-500/20 px-2 py-1 rounded-lg hover:bg-red-500/10 transition-colors"
+                    >
+                      🗑 Borrar Plan
+                    </button>
+                    <button onClick={() => setPantalla("menu")} className="text-[10px] font-black text-slate-500 uppercase">✕ Menú</button>
+                  </div>
                 </div>
+
                 <button onClick={modoEntreno ? finalizarEntrenamiento : () => setModoEntreno(true)} className={`w-full py-4 rounded-2xl font-black transition-all uppercase italic ${modoEntreno ? "bg-red-500 text-white" : "bg-green-500 text-black shadow-lg"}`}>
                   {modoEntreno ? "Finalizar y Guardar" : "Empezar Entreno"}
                 </button>
