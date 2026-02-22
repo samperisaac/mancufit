@@ -86,14 +86,15 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-100 font-sans overflow-x-hidden bg-black">
       
-      {/* 1. CAPA DE FONDO (FIJA) */}
+{/* 1. CAPA DE FONDO (MÁS CLARA) */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <img 
           src="/fondo.jpg" 
-          className="w-full h-full object-cover opacity-40" 
+          className="w-full h-full object-cover opacity-60 transition-opacity duration-700" 
           alt="background" 
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/80 to-black"></div>
+        {/* Degradado más suave para que la foto respire mejor */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black"></div>
       </div>
 
       {/* 2. CONTENIDO (Z-10 PARA ESTAR ENCIMA) */}
