@@ -15,6 +15,23 @@ export default function App() {
   const [historial, setHistorial] = useState([]);
   const [ejercicioDetalle, setEjercicioDetalle] = useState(null);
 
+// Bloqueo del gesto "atrás" del móvil
+  useEffect(() => {
+    // Empujamos un estado nuevo al historial
+    window.history.pushState(null, "", window.location.href);
+
+    const handlePopState = () => {
+      // Si el usuario intenta ir atrás, volvemos a empujar el estado
+      window.history.pushState(null, "", window.location.href);
+      
+      // Opcional: Si quieres que al dar atrás siempre vuelva al menú
+      // setPantalla("menu"); 
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   // --- PERSISTENCIA ---
   useEffect(() => {
     const rutinaG = localStorage.getItem("rutinaMancuFit");

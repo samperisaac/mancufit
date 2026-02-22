@@ -28,6 +28,23 @@ body::before {
   z-index: -1;
 }
 
+html, body {
+  /* Evita el rebote al arrastrar en iOS y bloquea gestos de navegación */
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: contain;
+  touch-action: pan-x pan-y;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  overflow-y: auto; /* Permite scroll vertical pero bloquea el horizontal de "atrás" */
+  -webkit-overflow-scrolling: touch;
+}
+
 #root {
   position: relative;
   z-index: 1;
