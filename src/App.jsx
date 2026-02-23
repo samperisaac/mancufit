@@ -34,25 +34,36 @@ export default function App() {
     localStorage.setItem("historialMancuFit", JSON.stringify(historial));
   }, [rutina, historial]);
 
-  // --- FUNCIONES ---
-  const toggleDia = (dia) => {
-    setDiasSeleccionados(prev => prev.includes(dia) ? prev.filter(d => d !== dia) : [...prev, dia]);
-  };
-
+  // --- LÓGICA DE GENERACIÓN (FULL BODY - 6 EJERCICIOS SIN REPETIR GRUPO) ---
   const generarRutina = () => {
     const nueva = {};
-    diasSeleccionados.forEach(dia => { nueva[dia] = []; });
-    setRutina(nueva);
-    setPantalla("menu");
-  };
+    const categoriasDisponibles = Object.keys(BASE_EJERCICIOS);
 
-  const agregarEjercicio = (ej) => {
-    if (!rutina) return;
-    const diaActivo = Object.keys(rutina)[0]; // Añade al primer día disponible por defecto
-    const nueva = { ...rutina };
-    nueva[diaActivo].push({ ...ej, id: Date.now(), series: "4", reps: "12", peso: "0" });
+    diasSeleccionados.forEach(dia => {
+      const ejerciciosDelDia = [];
+      // Mezclamos las categorías para elegir 6 distintas cada día
+      const categoriasMezcladas = [...categoriasDisponibles].sort(() => 0.5 - Math.random());
+      
+      categoriasMezcladas.slice(0, 6).forEach(cat => {
+        const lista = BASE_EJERCICIOS[cat];
+        const ejAleatorio = lista[Math.floor(Math.random() * lista.length)];
+        ejerciciosDelDia.push({ 
+          ...ejAleatorio, 
+          id: Math.random() * Date.now(), 
+          series: "4", 
+          reps: "12", 
+          peso: "0" 
+        });
+      });
+      nueva[dia] = ejerciciosDelDia;
+    });
+
     setRutina(nueva);
     setPantalla("mostrarRutina");
+  };
+
+  const toggleDia = (dia) => {
+    setDiasSeleccionados(prev => prev.includes(dia) ? prev.filter(d => d !== dia) : [...prev, dia]);
   };
 
   const actualizarEjercicio = (dia, id, campo, valor) => {
@@ -62,21 +73,15 @@ export default function App() {
     }));
   };
 
-  const abrirDetalle = (ej) => {
-    const info = Object.values(BASE_EJERCICIOS).flat().find(e => e.nombre === ej.nombre);
-    setEjercicioDetalle(info || ej);
-  };
-
   const finalizarEntrenamiento = () => {
     const logrados = [];
     Object.values(rutina).forEach(lista => logrados.push(...lista.filter(ej => completados.includes(ej.id))));
     if (logrados.length > 0) {
-      const nuevoRegistro = {
-        id: Date.now(),
-        fecha: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }),
-        ejercicios: logrados
-      };
-      setHistorial([nuevoRegistro, ...historial]);
+      setHistorial([{ 
+        id: Date.now(), 
+        fecha: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }), 
+        ejercicios: logrados 
+      }, ...historial]);
     }
     setModoEntreno(false);
     setCompletados([]);
@@ -86,18 +91,17 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-100 font-sans overflow-x-hidden bg-black">
       
-{/* 1. CAPA DE FONDO (MÁS CLARA) */}
+      {/* 1. CAPA DE FONDO (ACLARA AL 60%) */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <img 
           src="/fondo.jpg" 
-          className="w-full h-full object-cover opacity-60 transition-opacity duration-700" 
-          alt="background" 
+          className="w-full h-full object-cover opacity-60" 
+          alt="bg" 
         />
-        {/* Degradado más suave para que la foto respire mejor */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/70 to-black"></div>
       </div>
 
-      {/* 2. CONTENIDO (Z-10 PARA ESTAR ENCIMA) */}
+      {/* 2. CONTENIDO PRINCIPAL */}
       <div className="relative z-10 flex flex-col items-center p-4 min-h-screen">
         
         <header className="w-full max-w-md flex flex-col items-center pt-10 mb-12 text-center">
@@ -142,30 +146,23 @@ export default function App() {
             </div>
           )}
 
-{/* PANTALLA: MOSTRAR RUTINA */}
+          {/* PANTALLA: MOSTRAR RUTINA */}
           {pantalla === "mostrarRutina" && rutina && (
             <div className="space-y-6 animate-in fade-in pb-20">
-              <div className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl p-4 border border-white/10 rounded-3xl mb-4 shadow-2xl">
-                <div className="flex justify-between items-center mb-4 px-2">
+              <div className="sticky top-0 z-50 bg-black/90 backdrop-blur-xl p-5 border border-white/10 rounded-[2.5rem] mb-4 shadow-2xl">
+                <div className="flex justify-between items-center mb-5 px-1">
                   <h2 className="font-black italic text-blue-500 uppercase text-xs tracking-widest">Sesión Activa</h2>
-                  <div className="flex gap-3">
-                    {/* BOTÓN PARA REINICIAR TODO EL PLAN */}
+                  <div className="flex items-center gap-3">
                     <button 
-                      onClick={() => {
-                        if(confirm("¿Seguro que quieres borrar toda la rutina y crear una nueva?")) {
-                          setRutina(null);
-                          setPantalla("seleccionDias");
-                        }
-                      }} 
-                      className="text-[9px] font-black text-red-500/70 uppercase border border-red-500/20 px-2 py-1 rounded-lg hover:bg-red-500/10 transition-colors"
+                      onClick={() => { if(confirm("¿Borrar rutina?")) { setRutina(null); setPantalla("seleccionDias"); } }} 
+                      className="text-[10px] font-black text-red-500 uppercase border-2 border-red-500/30 px-4 py-2 rounded-xl bg-red-500/10"
                     >
                       🗑 Borrar Plan
                     </button>
-                    <button onClick={() => setPantalla("menu")} className="text-[10px] font-black text-slate-500 uppercase">✕ Menú</button>
+                    <button onClick={() => setPantalla("menu")} className="text-slate-500 text-sm font-bold">✕</button>
                   </div>
                 </div>
-
-                <button onClick={modoEntreno ? finalizarEntrenamiento : () => setModoEntreno(true)} className={`w-full py-4 rounded-2xl font-black transition-all uppercase italic ${modoEntreno ? "bg-red-500 text-white" : "bg-green-500 text-black shadow-lg"}`}>
+                <button onClick={modoEntreno ? finalizarEntrenamiento : () => setModoEntreno(true)} className={`w-full py-4 rounded-[1.5rem] font-black transition-all uppercase italic ${modoEntreno ? "bg-red-500 text-white" : "bg-green-500 text-black shadow-lg shadow-green-500/20"}`}>
                   {modoEntreno ? "Finalizar y Guardar" : "Empezar Entreno"}
                 </button>
                 {modoEntreno && <div className="mt-4"><CronometroDescanso tiempoInicial={60} /></div>}
@@ -180,11 +177,11 @@ export default function App() {
                       return (
                         <div key={ej.id} className={`p-4 rounded-3xl border transition-all duration-300 ${done ? "bg-green-500/10 border-green-500/30 opacity-40 scale-[0.98]" : "bg-white/5 border-white/10 shadow-inner"}`}>
                           <div className="flex justify-between items-center mb-4">
-                            <span onClick={() => abrirDetalle(ej)} className="font-bold text-lg text-white uppercase italic tracking-tighter cursor-pointer">
-                              {ej.nombre} <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30 ml-2 uppercase">Info</span>
+                            <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg text-white uppercase italic tracking-tighter cursor-pointer">
+                              {ej.nombre} <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30 ml-2">INFO</span>
                             </span>
                             {modoEntreno && (
-                              <button onClick={() => setCompletados(p => p.includes(ej.id) ? p.filter(id => id !== ej.id) : [...p, ej.id])} className={`min-w-[48px] h-12 rounded-2xl border-2 flex items-center justify-center transition-all ${done ? "bg-green-500 border-green-400 text-black shadow-lg" : "border-white/20 text-slate-500"}`}>
+                              <button onClick={() => setCompletados(p => p.includes(ej.id) ? p.filter(id => id !== ej.id) : [...p, ej.id])} className={`min-w-[48px] h-12 rounded-2xl border-2 flex items-center justify-center transition-all ${done ? "bg-green-500 border-green-400 text-black" : "border-white/20 text-slate-500"}`}>
                                 {done ? "✓" : ""}
                               </button>
                             )}
@@ -223,16 +220,20 @@ export default function App() {
                 <CuerpoHumano alSeleccionarMusculo={setMusculoSeleccionado} />
               ) : (
                 <div className="space-y-4 animate-in zoom-in duration-300">
-                  <button onClick={() => setMusculoSeleccionado(null)} className="text-blue-400 font-black text-[10px] mb-4 tracking-widest uppercase flex items-center gap-2">← VOLVER AL CUERPO</button>
+                  <button onClick={() => setMusculoSeleccionado(null)} className="text-blue-400 font-black text-[10px] mb-4 uppercase">← VOLVER</button>
                   <div className="bg-black/60 border border-white/10 p-6 rounded-[2rem] backdrop-blur-xl">
-                    <h3 className="text-3xl font-black text-blue-500 mb-6 italic uppercase tracking-tighter">{musculoSeleccionado}</h3>
+                    <h3 className="text-3xl font-black text-blue-500 mb-6 italic uppercase">{musculoSeleccionado}</h3>
                     {BASE_EJERCICIOS[musculoSeleccionado.toLowerCase()]?.map((ej, i) => (
                       <div key={i} className="border-l-4 border-blue-500 p-4 bg-white/5 mb-3 rounded-r-2xl flex justify-between items-center">
-                        <div onClick={() => abrirDetalle(ej)} className="flex-1 cursor-pointer">
-                          <p className="font-bold text-lg uppercase italic tracking-tighter">{ej.nombre}</p>
-                          <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Técnica</p>
-                        </div>
-                        <button onClick={() => agregarEjercicio(ej)} className="bg-blue-500 w-10 h-10 rounded-full font-black text-white active:scale-90 transition-transform">+</button>
+                        <div><p className="font-bold text-lg uppercase italic">{ej.nombre}</p></div>
+                        <button onClick={() => {
+                          const nueva = {...rutina};
+                          const dia = Object.keys(rutina)[0] || 'Lunes';
+                          if(!nueva[dia]) nueva[dia] = [];
+                          nueva[dia].push({...ej, id: Date.now(), series: "4", reps: "12", peso: "0"});
+                          setRutina(nueva);
+                          setPantalla("mostrarRutina");
+                        }} className="bg-blue-500 w-10 h-10 rounded-full font-black text-white">+</button>
                       </div>
                     ))}
                   </div>
@@ -245,18 +246,18 @@ export default function App() {
           {pantalla === "historial" && (
             <div className="animate-in slide-in-from-right duration-500 pb-20">
               <div className="flex justify-between items-center mb-8 px-2">
-                <h2 className="text-3xl font-black italic uppercase text-orange-400 tracking-tighter">Progreso</h2>
-                <button onClick={() => setPantalla("menu")} className="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-[10px] font-black uppercase text-orange-400">✕ Volver</button>
+                <h2 className="text-3xl font-black italic uppercase text-orange-400">Progreso</h2>
+                <button onClick={() => setPantalla("menu")} className="text-orange-400 font-bold">✕</button>
               </div>
               {historial.length === 0 ? (
-                <p className="text-center text-slate-500 italic py-20 border-2 border-dashed border-white/10 rounded-[2rem]">Aún no hay registros.</p>
+                <p className="text-center text-slate-500 italic py-20 border-2 border-dashed border-white/10 rounded-[2rem]">Sin registros.</p>
               ) : (
                 historial.map(item => (
-                  <div key={item.id} className="bg-black/40 backdrop-blur-md p-6 rounded-[2rem] border border-white/5 mb-4">
+                  <div key={item.id} className="bg-black/40 backdrop-blur-md p-6 rounded-[2rem] border border-white/5 mb-4 shadow-lg">
                     <p className="text-orange-400 font-black italic uppercase text-sm mb-3">{item.fecha}</p>
                     <div className="flex flex-wrap gap-2">
-                      {item.exercises?.map((e, idx) => (
-                        <span key={idx} className="text-[9px] text-slate-400 bg-white/5 px-2 py-1 rounded-lg">{e.nombre}</span>
+                      {item.ejercicios.map((e, idx) => (
+                        <span key={idx} className="text-[9px] text-slate-400 bg-white/5 px-2 py-1 rounded-lg border border-white/5">{e.nombre}</span>
                       ))}
                     </div>
                   </div>
@@ -267,14 +268,14 @@ export default function App() {
         </main>
       </div>
 
-      {/* MODAL TÉCNICO */}
+      {/* MODAL DE DETALLE */}
       {ejercicioDetalle && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
           <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={() => setEjercicioDetalle(null)}></div>
-          <div className="relative bg-[#111] border border-white/10 w-full max-w-sm rounded-[3rem] p-8 animate-in zoom-in shadow-2xl">
+          <div className="relative bg-[#111] border border-white/10 w-full max-w-sm rounded-[3rem] p-8 animate-in zoom-in">
             <h3 className="text-2xl font-black italic text-blue-500 uppercase mb-6 tracking-tighter">{ejercicioDetalle.nombre}</h3>
             <p className="text-[10px] font-black uppercase text-slate-500 mb-2">Instrucciones</p>
-            <p className="text-slate-300 text-sm mb-6">{ejercicioDetalle.instrucciones || "Próximamente..."}</p>
+            <p className="text-slate-300 text-sm mb-6 leading-relaxed">{ejercicioDetalle.instrucciones || "No hay instrucciones disponibles para este ejercicio."}</p>
             <button onClick={() => setEjercicioDetalle(null)} className="w-full py-4 bg-white/5 border border-white/10 rounded-2xl font-black uppercase text-[10px]">Cerrar</button>
           </div>
         </div>
