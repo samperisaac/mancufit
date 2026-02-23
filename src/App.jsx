@@ -34,26 +34,27 @@ export default function App() {
     localStorage.setItem("historialMancuFit", JSON.stringify(historial));
   }, [rutina, historial]);
 
-  // --- LÓGICA DE GENERACIÓN (FULL BODY - 6 EJERCICIOS SIN REPETIR GRUPO) ---
+  // --- LÓGICA DE GENERACIÓN (6 EJERCICIOS DIFERENTES) ---
   const generarRutina = () => {
     const nueva = {};
     const categoriasDisponibles = Object.keys(BASE_EJERCICIOS);
 
     diasSeleccionados.forEach(dia => {
       const ejerciciosDelDia = [];
-      // Mezclamos las categorías para elegir 6 distintas cada día
       const categoriasMezcladas = [...categoriasDisponibles].sort(() => 0.5 - Math.random());
       
       categoriasMezcladas.slice(0, 6).forEach(cat => {
         const lista = BASE_EJERCICIOS[cat];
-        const ejAleatorio = lista[Math.floor(Math.random() * lista.length)];
-        ejerciciosDelDia.push({ 
-          ...ejAleatorio, 
-          id: Math.random() * Date.now(), 
-          series: "4", 
-          reps: "12", 
-          peso: "0" 
-        });
+        if (lista && lista.length > 0) {
+          const ejAleatorio = lista[Math.floor(Math.random() * lista.length)];
+          ejerciciosDelDia.push({ 
+            ...ejAleatorio, 
+            id: Math.random() * Date.now(), 
+            series: "4", 
+            reps: "12", 
+            peso: "0" 
+          });
+        }
       });
       nueva[dia] = ejerciciosDelDia;
     });
@@ -155,7 +156,7 @@ export default function App() {
                   <div className="flex items-center gap-3">
                     <button 
                       onClick={() => { if(confirm("¿Borrar rutina?")) { setRutina(null); setPantalla("seleccionDias"); } }} 
-                      className="text-[10px] font-black text-red-500 uppercase border-2 border-red-500/30 px-4 py-2 rounded-xl bg-red-500/10"
+                      className="text-[10px] font-black text-red-500 uppercase border-2 border-red-500/30 px-4 py-2 rounded-xl bg-red-500/10 active:scale-90 transition-all"
                     >
                       🗑 Borrar Plan
                     </button>
@@ -177,8 +178,8 @@ export default function App() {
                       return (
                         <div key={ej.id} className={`p-4 rounded-3xl border transition-all duration-300 ${done ? "bg-green-500/10 border-green-500/30 opacity-40 scale-[0.98]" : "bg-white/5 border-white/10 shadow-inner"}`}>
                           <div className="flex justify-between items-center mb-4">
-                            <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg text-white uppercase italic tracking-tighter cursor-pointer">
-                              {ej.nombre} <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30 ml-2">INFO</span>
+                            <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg text-white uppercase italic tracking-tighter cursor-pointer flex items-center gap-2">
+                              {ej.nombre} <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">INFO</span>
                             </span>
                             {modoEntreno && (
                               <button onClick={() => setCompletados(p => p.includes(ej.id) ? p.filter(id => id !== ej.id) : [...p, ej.id])} className={`min-w-[48px] h-12 rounded-2xl border-2 flex items-center justify-center transition-all ${done ? "bg-green-500 border-green-400 text-black" : "border-white/20 text-slate-500"}`}>
@@ -225,7 +226,7 @@ export default function App() {
                     <h3 className="text-3xl font-black text-blue-500 mb-6 italic uppercase">{musculoSeleccionado}</h3>
                     {BASE_EJERCICIOS[musculoSeleccionado.toLowerCase()]?.map((ej, i) => (
                       <div key={i} className="border-l-4 border-blue-500 p-4 bg-white/5 mb-3 rounded-r-2xl flex justify-between items-center">
-                        <div><p className="font-bold text-lg uppercase italic">{ej.nombre}</p></div>
+                        <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg uppercase italic cursor-pointer">{ej.nombre}</span>
                         <button onClick={() => {
                           const nueva = {...rutina};
                           const dia = Object.keys(rutina)[0] || 'Lunes';
@@ -268,15 +269,45 @@ export default function App() {
         </main>
       </div>
 
-      {/* MODAL DE DETALLE */}
+      {/* --- MODAL DE DETALLE (EL QUE TIENE EL GIF) --- */}
       {ejercicioDetalle && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={() => setEjercicioDetalle(null)}></div>
-          <div className="relative bg-[#111] border border-white/10 w-full max-w-sm rounded-[3rem] p-8 animate-in zoom-in">
-            <h3 className="text-2xl font-black italic text-blue-500 uppercase mb-6 tracking-tighter">{ejercicioDetalle.nombre}</h3>
-            <p className="text-[10px] font-black uppercase text-slate-500 mb-2">Instrucciones</p>
-            <p className="text-slate-300 text-sm mb-6 leading-relaxed">{ejercicioDetalle.instrucciones || "No hay instrucciones disponibles para este ejercicio."}</p>
-            <button onClick={() => setEjercicioDetalle(null)} className="w-full py-4 bg-white/5 border border-white/10 rounded-2xl font-black uppercase text-[10px]">Cerrar</button>
+          <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={() => setEjercicioDetalle(null)}></div>
+          
+          <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-sm rounded-[3rem] p-8 animate-in zoom-in shadow-[0_0_50px_rgba(0,0,0,1)]">
+            <h3 className="text-2xl font-black italic text-blue-500 uppercase mb-6 tracking-tighter text-center">
+              {ejercicioDetalle.nombre}
+            </h3>
+
+            <div className="w-full aspect-square bg-white/5 rounded-[2rem] overflow-hidden mb-6 border border-white/10 flex items-center justify-center relative">
+              {ejercicioDetalle.gif ? (
+                <img 
+                  src={ejercicioDetalle.gif} 
+                  alt={ejercicioDetalle.nombre} 
+                  className="w-full h-full object-cover"
+                  key={ejercicioDetalle.gif} 
+                />
+              ) : (
+                <div className="text-center p-6 text-slate-500">
+                  <p className="text-4xl mb-2">🏋️‍♂️</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest">Sin vista previa</p>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-2 mb-8 text-center">
+              <p className="text-[10px] font-black uppercase text-blue-500/50 tracking-widest">Técnica</p>
+              <p className="text-slate-300 text-sm leading-relaxed italic">
+                "{ejercicioDetalle.instrucciones || "Consulta la técnica con un profesional."}"
+              </p>
+            </div>
+
+            <button 
+              onClick={() => setEjercicioDetalle(null)} 
+              className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg shadow-blue-500/20"
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       )}

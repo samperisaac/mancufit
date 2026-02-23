@@ -61,10 +61,11 @@ export const ejerciciosDB = {
   ],
   piernas: [
     { 
-      nombre: "Sentadillas", 
+      nombre: "elevaciones pantorrilla", 
       series: 3, reps: "15", peso: "15",
-      instrucciones: "Pies a la anchura de los hombros. Baja la cadera como si fueras a sentarte, manteniendo la espalda recta y el peso en los talones.",
-      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies."
+      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
+      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
+      gif: "/gifs/elevaciones_pantorrilla.gif"
     },
     { 
       nombre: "Zancadas (Lunges)", 
