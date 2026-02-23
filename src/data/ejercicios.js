@@ -1,16 +1,31 @@
 export const ejerciciosDB = {
   pecho: [
     { 
-      nombre: "Press con mancuernas", 
+      nombre: "Press de martillo con mancuernas inclinado", 
+      series: 3, reps: "10-12", peso: "10",
+      instrucciones: "Ajuste el banco inclinado a un ángulo de 30 a 45 grados. Comience con las mancuernas a la altura de los hombros, los codos doblados y las manos alineadas con el torso. Empuja las mancuernas hacia arriba y ligeramente hacia adentro de manera controlada.",
+      tips: "No choques las mancuernas arriba, mantén la tensión en el pectoral.",
+      gif: "/gifs/press_martillo_inclinado.gif",
+    },
+    { 
+      nombre: "Press declinado con mancuernas", 
       series: 3, reps: "10-12", peso: "10",
       instrucciones: "Túmbate en un banco plano. Empuja las mancuernas hacia arriba sobre el pecho, extendiendo los brazos. Baja lentamente hasta que los codos queden ligeramente por debajo de los hombros.",
-      tips: "No choques las mancuernas arriba, mantén la tensión en el pectoral."
+      tips: "No choques las mancuernas arriba, mantén la tensión en el pectoral.",
+      gif: "/gifs/press_declinado_mancuernas.gif",
+    },
+    { 
+      nombre: "balanceos de brazos cruzados", 
+      series: 3, reps: "12-15", peso: "0",
+      instrucciones: "Estire los brazos hacia los lados a la altura de los hombros, balancea los brazos sobre el pecho, superponiendo uno sobre el otro como si fueran tijeras.",
+      gif: "/gifs/balanceo_brazos_cruzados.gif",
     },
     { 
       nombre: "Flexiones (Suelo)", 
       series: 3, reps: "12-15", peso: "0",
       instrucciones: "Cuerpo en línea recta desde la cabeza a los talones. Baja el pecho hasta casi tocar el suelo y empuja con fuerza hacia arriba.",
-      tips: "Mantén los codos a 45 grados del cuerpo, no abiertos en T."
+      tips: "Evita tocar suelo",
+      gif: "/gifs/flexiones.gif",
     },
     { 
       nombre: "Aperturas con mancuernas", 
