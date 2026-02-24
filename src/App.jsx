@@ -6,6 +6,7 @@ import { ejerciciosDB as BASE_EJERCICIOS } from './data/ejercicios';
 
 const DIAS_SEMANA = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
+
 export default function App() {
   const [pantalla, setPantalla] = useState('menu');
   const [rutina, setRutina] = useState(null);
