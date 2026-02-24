@@ -1,4 +1,3 @@
-/* @tailwind base; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,16 +8,14 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  /* Evita el refresco accidental y el rebote */
   overscroll-behavior-y: none;
   overscroll-behavior-x: none;
   background-color: #0a0a0c;
-  /* Control de gestos táctiles */
   touch-action: pan-y; 
   overflow: hidden;
 }
 
-/* 2. FONDO CON PSEUDO-ELEMENTO */
+/* 2. FONDO */
 body::before {
   content: "";
   position: fixed;
@@ -30,31 +27,16 @@ body::before {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* Oscurecimiento y desenfoque */
   filter: brightness(0.3) blur(5px);
   z-index: -1;
 }
 
-/* 3. CONTENEDOR PRINCIPAL (SCROLL) */
+/* 3. CONTENEDOR PRINCIPAL */
 #root {
   height: 100%;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  /* Mejora el scroll en dispositivos Apple */
-  -webkit-overflow-scrolling: touch;
   position: relative;
   z-index: 10;
-  min-height: 100vh;
-  width: 100%;
-}
-
-/* Estilo de la barra de scroll sutil */
-#root::-webkit-scrollbar {
-  width: 4px;
-}
-
-#root::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.2);
-  border-radius: 10px;
 }
