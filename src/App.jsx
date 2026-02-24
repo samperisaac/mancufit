@@ -102,7 +102,7 @@ export default function App() {
       <div className="relative z-10 flex flex-col items-center p-4 min-h-screen">
         <header className="w-full max-w-md flex flex-col items-center pt-10 mb-12 text-center text-white">
           <h1 className="text-5xl font-black italic tracking-tighter drop-shadow-[0_0_20px_rgba(37,99,235,0.6)]">
-            MANCU<span className="text-blue-500">FIT 2.0</span>
+            MANCU<span className="text-blue-500">FIT</span>
           </h1>
           <p className="text-[10px] font-black tracking-[0.5em] text-blue-500/50 uppercase mt-2 italic">Elite Training</p>
         </header>
