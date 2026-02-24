@@ -1,51 +1,58 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-body {
+/* 1. CONFIGURACIÓN GLOBAL */
+html, body {
   margin: 0;
   padding: 0;
-  /* 1. Pon aquí el nombre de tu foto (guárdala en la carpeta /public) */
-  background-image: url('/fondo-gym.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-color: #0a0a0c; /* Color de respaldo */
+  width: 100%;
+  height: 100%;
+  /* Evita el refresco accidental y el rebote */
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  background-color: #0a0a0c;
+  /* Control de gestos táctiles */
+  touch-action: pan-y; 
+  overflow: hidden;
 }
 
-/* 2. Capa para oscurecer y difuminar la imagen */
+/* 2. FONDO CON PSEUDO-ELEMENTO */
 body::before {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  /* Bajamos el negro al 50% (0.5) y el desenfoque a 3px */
-  background: rgba(0, 0, 0, 0.7); 
-  backdrop-filter: blur(5px); 
-  -webkit-backdrop-filter: blur(3px);
+  right: 0;
+  bottom: 0;
+  background-image: url('/fondo-gym.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Oscurecimiento y desenfoque */
+  filter: brightness(0.3) blur(5px);
   z-index: -1;
 }
 
-html, body {
-  /* Evita el rebote al arrastrar en iOS y bloquea gestos de navegación */
-  overscroll-behavior-x: none;
-  overscroll-behavior-y: contain;
-  touch-action: pan-x pan-y;
-  position: fixed;
+/* 3. CONTENEDOR PRINCIPAL (SCROLL) */
+#root {
+  height: 100%;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-#root {
-  height: 100%;
-  overflow-y: auto; /* Permite scroll vertical pero bloquea el horizontal de "atrás" */
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Mejora el scroll en dispositivos Apple */
   -webkit-overflow-scrolling: touch;
-}
-
-#root {
   position: relative;
   z-index: 1;
+}
+
+/* Estilo de la barra de scroll sutil */
+#root::-webkit-scrollbar {
+  width: 4px;
+}
+
+#root::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 10px;
 }
