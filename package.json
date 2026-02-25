@@ -8,11 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lucide-react": "^0.575.0",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "recharts": "^2.12.7",
-    "workbox-window": "^7.4.0"
+    "react-dom": "^18.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.1.4",
