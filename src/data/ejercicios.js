@@ -67,10 +67,10 @@ export const ejerciciosDB = {
       gif: "/gifs/Double-Arm-Dumbbell-Curl.gif"
     },
     { 
-      nombre: "Press francés (Tríceps)", 
+      nombre: "Triturador de cráneo con mancuerna", 
       series: 3, reps: "10", peso: "6",
-      instrucciones: "Tumbado, brazos extendidos. Dobla los codos bajando las pesas hacia tus sienes y vuelve a extender.",
-      tips: "Mantén los codos cerrados, que no se abran hacia afuera."
+      instrucciones: "Tumbado, brazos extendidos. Dobla los codos bajando las pesas hacia tu frente y vuelve a extender.",
+      gif: "/gifs/Dumbbell-Skull-Crusher.gif"
     },
     { 
       nombre: "Patada hacia atrás con mancuerna", 
