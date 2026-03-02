@@ -76,13 +76,13 @@ export const ejerciciosDB = {
       nombre: "Patada hacia atrás con mancuerna", 
       series: 3, reps: "10", peso: "6",
       instrucciones: "Sostenga una mancuerna. Coloque la mano opuesta sobre un banco para apoyarse. Exhala mientras extiendes el brazo completamente hacia atrás. Aprieta los tríceps. Inhala mientras regresas lentamente a la posición",
-      tips: "/gifs/Dumbbell-Kickback.gif"
+      gif: "/gifs/Dumbbell-Kickback.gif"
     },
     { 
       nombre: "Fondos en silla", 
       series: 3, reps: "20", peso: "0",
       instrucciones: "Baje lentamente el cuerpo doblando los codos hasta que alcancen un ángulo de 90 grados. Mantenga la espalda pegada a la silla. Haz una breve pausa en la parte inferior, luego empuja con las palmas para extender los brazos y volver a la posición inicial.",
-      tips: "/gifs/CHAIR-DIPS.gif"
+      gif: "/gifs/CHAIR-DIPS.gif"
     },
     { 
       nombre: "Curl de concentración", 
