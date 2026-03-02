@@ -32,7 +32,13 @@ export const ejerciciosDB = {
       series: 3, reps: "12", peso: "8",
       instrucciones: "Baja las mancuernas hacia los lados con los codos ligeramente flexionados, sintiendo el estiramiento en el pecho. Vuelve a la posición inicial como si abrazaras un árbol.",
       tips: "Evita bajar demasiado para proteger tus hombros.",
-      gif: "/gifs/aperturas_mancuernas",
+      gif: "/gifs/aperturas_mancuernas.gif",
+    },
+    { 
+      nombre: "Press mancuerna agarre cerrado", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "Acuéstese en un banco. Coloca las mancuernas directamente sobre tu pecho. Comience el movimiento extendiendo los brazos completamente, presione fuerte el pecho y baja lentamente",
+      gif: "/gifs/Close-Grip-Dumbbell-Press.gif",
     }
   ],
   espalda: [
