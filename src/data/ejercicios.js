@@ -64,9 +64,7 @@ export const ejerciciosDB = {
       series: 3, reps: "12", peso: "8",
       instrucciones: "De pie, palmas hacia adelante. Sube las mancuernas doblando el codo sin mover el hombro.",
       tips: "No balancees la espalda para subir el peso.",
-      gif: "/gifs/Double-Arm-Dumbbell-Curl.gif",
-
-    
+      gif: "/gifs/Double-Arm-Dumbbell-Curl.gif"
     },
     { 
       nombre: "Press francés (Tríceps)", 
@@ -75,10 +73,28 @@ export const ejerciciosDB = {
       tips: "Mantén los codos cerrados, que no se abran hacia afuera."
     },
     { 
-      nombre: "Curl martillo", 
+      nombre: "Patada hacia atrás con mancuerna", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Sostenga una mancuerna. Coloque la mano opuesta sobre un banco para apoyarse. Exhala mientras extiendes el brazo completamente hacia atrás. Aprieta los tríceps. Inhala mientras regresas lentamente a la posición",
+      tips: "/gifs/Dumbbell-Kickback.gif"
+    },
+    { 
+      nombre: "Fondos en silla", 
+      series: 3, reps: "20", peso: "0",
+      instrucciones: "Baje lentamente el cuerpo doblando los codos hasta que alcancen un ángulo de 90 grados. Mantenga la espalda pegada a la silla. Haz una breve pausa en la parte inferior, luego empuja con las palmas para extender los brazos y volver a la posición inicial.",
+      tips: "/gifs/CHAIR-DIPS.gif"
+    },
+    { 
+      nombre: "Curl de concentración", 
       series: 3, reps: "12", peso: "8",
-      instrucciones: "Igual que el curl normal pero con las palmas enfrentadas (agarre neutro).",
-      tips: "Ideal para trabajar el braquial y dar grosor al brazo."
+      instrucciones: "Siéntese en un banco. Coloca el codo en la parte interior del muslo. Levante el peso hacia el hombro. Haga una pausa en la parte superior del movimiento y luego baje lentamente",
+      gif: "/gifs/Concentration-Curl.gif"
+    },
+    { 
+      nombre: "Curl Zottman sentado", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "Comienza sentado en un banco, Sujete una mancuerna en cada mano con las palmas hacia arriba, Levanta las mancuernas hacia los hombros y  en la parte superior del curl gire las muñecas girando las palmas hacia abajo, comienza a bajar las mancuernas lentamente hasta la posición inicial",
+      gif: "/gifs/curl_zottman_sentado.gif"
     }
   ],
   piernas: [
