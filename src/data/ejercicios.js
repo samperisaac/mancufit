@@ -54,6 +54,7 @@ export const ejerciciosDB = {
       nombre: "Pájaro (Hombro posterior)", 
       series: 3, reps: "12", peso: "5",
       instrucciones: "Coloque los brazos del cable a la altura de los hombros. Exhala manteniendo los brazos rectos, estira los hombros hacia los lados. Mantén la postura brevemente y luego regresa lentamente a la posición inicial",
+      tips: "no tires mucho de la cuerda",
       gif: "/gifs/polea_trasera_cuerda.gif",
     }
   ],
@@ -62,7 +63,10 @@ export const ejerciciosDB = {
       nombre: "Curl de bíceps", 
       series: 3, reps: "12", peso: "8",
       instrucciones: "De pie, palmas hacia adelante. Sube las mancuernas doblando el codo sin mover el hombro.",
-      tips: "No balancees la espalda para subir el peso."
+      tips: "No balancees la espalda para subir el peso.",
+      gif: "/gifs/Double-Arm-Dumbbell-Curl.gif",
+
+    
     },
     { 
       nombre: "Press francés (Tríceps)", 
