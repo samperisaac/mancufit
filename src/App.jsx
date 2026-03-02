@@ -15,12 +15,25 @@ export default function App() {
   const [completados, setCompletados] = useState([]);
   const [historial, setHistorial] = useState([]);
 
+  // --- LÓGICA PARA DETECTAR EL DÍA REAL ---
+  const obtenerDiaHoy = () => {
+    const numeroDiaJS = new Date().getDay(); 
+    const mapeo = { 0: 'Domingo', 1: 'Lunes', 2: 'Martes', 3: 'Miércoles', 4: 'Jueves', 5: 'Viernes', 6: 'Sábado' };
+    return mapeo[numeroDiaJS];
+  };
+
+  const hoy = obtenerDiaHoy();
+  const tocaEntrenarHoy = diasSeleccionados.includes(hoy);
+
   // --- PERSISTENCIA ---
   useEffect(() => {
     const rutinaG = localStorage.getItem("rutinaMancuFit");
     const historialG = localStorage.getItem("historialMancuFit");
+    const diasG = localStorage.getItem("diasMancuFit");
+    
     if (rutinaG) setRutina(JSON.parse(rutinaG));
     if (historialG) setHistorial(JSON.parse(historialG));
+    if (diasG) setDiasSeleccionados(JSON.parse(diasG));
 
     window.history.pushState(null, "", window.location.href);
     const handlePopState = () => window.history.pushState(null, "", window.location.href);
@@ -31,31 +44,42 @@ export default function App() {
   useEffect(() => {
     if (rutina) localStorage.setItem("rutinaMancuFit", JSON.stringify(rutina));
     else localStorage.removeItem("rutinaMancuFit");
+    
     localStorage.setItem("historialMancuFit", JSON.stringify(historial));
-  }, [rutina, historial]);
+    localStorage.setItem("diasMancuFit", JSON.stringify(diasSeleccionados));
+  }, [rutina, historial, diasSeleccionados]);
 
-  // --- LÓGICA DE GENERACIÓN (6 EJERCICIOS DIFERENTES) ---
+// --- GENERACIÓN INTELIGENTE (MODO MIX - 6 PARTES DIFERENTES) ---
   const generarRutina = () => {
     const nueva = {};
+    // Sacamos las categorías disponibles (pecho, espalda, piernas, etc.)
     const categoriasDisponibles = Object.keys(BASE_EJERCICIOS);
 
-    diasSeleccionados.forEach(dia => {
+    diasSeleccionados.forEach((dia) => {
       const ejerciciosDelDia = [];
+      
+      // Mezclamos el orden de las categorías para que cada día empiece por una distinta
       const categoriasMezcladas = [...categoriasDisponibles].sort(() => 0.5 - Math.random());
       
+      // Tomamos las primeras 6 categorías para asegurar que no se repitan
       categoriasMezcladas.slice(0, 6).forEach(cat => {
-        const lista = BASE_EJERCICIOS[cat];
-        if (lista && lista.length > 0) {
-          const ejAleatorio = lista[Math.floor(Math.random() * lista.length)];
+        const listaDeEsaParte = BASE_EJERCICIOS[cat];
+        
+        if (listaDeEsaParte && listaDeEsaParte.length > 0) {
+          // Elegimos uno al azar de esa categoría concreta
+          const ejAleatorio = listaDeEsaParte[Math.floor(Math.random() * listaDeEsaParte.length)];
+          
           ejerciciosDelDia.push({ 
             ...ejAleatorio, 
             id: Math.random() * Date.now(), 
             series: "4", 
             reps: "12", 
-            peso: "0" 
+            peso: "0",
+            enfoque: cat // Guardamos que esta es la parte de "pecho", "espalda", etc.
           });
         }
       });
+      
       nueva[dia] = ejerciciosDelDia;
     });
 
@@ -76,7 +100,10 @@ export default function App() {
 
   const finalizarEntrenamiento = () => {
     const logrados = [];
-    Object.values(rutina).forEach(lista => logrados.push(...lista.filter(ej => completados.includes(ej.id))));
+    if (rutina[hoy]) {
+      logrados.push(...rutina[hoy].filter(ej => completados.includes(ej.id)));
+    }
+    
     if (logrados.length > 0) {
       setHistorial([{ 
         id: Date.now(), 
@@ -92,17 +119,12 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-100 font-sans overflow-x-hidden bg-black">
       
-      {/* 1. CAPA DE FONDO (ACLARA AL 60%) */}
+      {/* CAPA DE FONDO */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <img 
-          src="/fondo.jpg" 
-          className="w-full h-full object-cover opacity-60" 
-          alt="bg" 
-        />
+        <img src="/fondo.jpg" className="w-full h-full object-cover opacity-60" alt="bg" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/70 to-black"></div>
       </div>
 
-      {/* 2. CONTENIDO PRINCIPAL */}
       <div className="relative z-10 flex flex-col items-center p-4 min-h-screen">
         
         <header className="w-full max-w-md flex flex-col items-center pt-10 mb-12 text-center">
@@ -119,6 +141,7 @@ export default function App() {
               <button onClick={() => rutina ? setPantalla("mostrarRutina") : setPantalla("seleccionDias")} className="relative w-full py-8 border-2 border-white/20 rounded-[40px] bg-white/5 backdrop-blur-sm active:scale-95 transition-all overflow-hidden">
                 <span className="text-2xl font-black italic uppercase tracking-[0.2em] relative z-10">Mi Rutina</span>
                 <div className="absolute right-[-5%] bottom-[-10%] text-6xl opacity-5 italic font-black">PLAN</div>
+                {tocaEntrenarHoy && <div className="absolute top-4 right-6 bg-green-500 w-3 h-3 rounded-full animate-ping"></div>}
               </button>
               <button onClick={() => setPantalla("anatomia")} className="relative w-full py-8 border-2 border-white/20 rounded-[40px] bg-white/5 backdrop-blur-sm active:scale-95 transition-all overflow-hidden">
                 <span className="text-2xl font-black italic uppercase tracking-[0.2em] relative z-10">Anatomía</span>
@@ -147,66 +170,103 @@ export default function App() {
             </div>
           )}
 
-          {/* PANTALLA: MOSTRAR RUTINA */}
-          {pantalla === "mostrarRutina" && rutina && (
+          {/* PANTALLA: MOSTRAR RUTINA (Con lógica de descanso) */}
+          {pantalla === "mostrarRutina" && (
             <div className="space-y-6 animate-in fade-in pb-20">
-              <div className="sticky top-0 z-50 bg-black/90 backdrop-blur-xl p-5 border border-white/10 rounded-[2.5rem] mb-4 shadow-2xl">
-                <div className="flex justify-between items-center mb-5 px-1">
-                  <h2 className="font-black italic text-blue-500 uppercase text-xs tracking-widest">Sesión Activa</h2>
-                  <div className="flex items-center gap-3">
-                    <button 
-                      onClick={() => { if(confirm("¿Borrar rutina?")) { setRutina(null); setPantalla("seleccionDias"); } }} 
-                      className="text-[10px] font-black text-red-500 uppercase border-2 border-red-500/30 px-4 py-2 rounded-xl bg-red-500/10 active:scale-90 transition-all"
-                    >
-                      🗑 Borrar Plan
-                    </button>
-                    <button onClick={() => setPantalla("menu")} className="text-slate-500 text-sm font-bold">✕</button>
+              
+              {!tocaEntrenarHoy ? (
+                /* VISTA DÍA DE DESCANSO */
+                <div className="bg-black/60 border border-white/10 p-10 rounded-[3rem] backdrop-blur-xl text-center shadow-2xl">
+                  <div className="text-6xl mb-6 animate-bounce">😴</div>
+                  <h2 className="text-2xl font-black italic text-white uppercase mb-4">Día de Descanso</h2>
+                  <p className="text-slate-400 text-sm leading-relaxed italic mb-8">
+                    "El músculo también tiene derecho a un descanso. Hoy toca recargar pilas para volver con más fuerza."
+                  </p>
+                  
+                  <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-2xl mb-8">
+                    <p className="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-1">Próxima cita</p>
+                    <p className="text-white font-bold italic uppercase">
+                      {diasSeleccionados.find(d => DIAS_SEMANA.indexOf(d) > DIAS_SEMANA.indexOf(hoy)) || diasSeleccionados[0]}
+                    </p>
                   </div>
-                </div>
-                <button onClick={modoEntreno ? finalizarEntrenamiento : () => setModoEntreno(true)} className={`w-full py-4 rounded-[1.5rem] font-black transition-all uppercase italic ${modoEntreno ? "bg-red-500 text-white" : "bg-green-500 text-black shadow-lg shadow-green-500/20"}`}>
-                  {modoEntreno ? "Finalizar y Guardar" : "Empezar Entreno"}
-                </button>
-                {modoEntreno && <div className="mt-4"><CronometroDescanso tiempoInicial={60} /></div>}
-              </div>
 
-              {Object.entries(rutina).map(([dia, ejercicios]) => (
-                <div key={dia} className="bg-black/40 border border-white/10 p-6 rounded-[2.5rem] backdrop-blur-md mb-6 shadow-xl">
-                  <h3 className="text-xl font-black text-blue-400 mb-6 italic uppercase border-b border-white/10 pb-2">{dia}</h3>
-                  <div className="space-y-4">
-                    {ejercicios.map((ej) => {
-                      const done = completados.includes(ej.id);
-                      return (
-                        <div key={ej.id} className={`p-4 rounded-3xl border transition-all duration-300 ${done ? "bg-green-500/10 border-green-500/30 opacity-40 scale-[0.98]" : "bg-white/5 border-white/10 shadow-inner"}`}>
-                          <div className="flex justify-between items-center mb-4">
-                            <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg text-white uppercase italic tracking-tighter cursor-pointer flex items-center gap-2">
-                              {ej.nombre} <span className="text-[9px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">INFO</span>
-                            </span>
-                            {modoEntreno && (
-                              <button onClick={() => setCompletados(p => p.includes(ej.id) ? p.filter(id => id !== ej.id) : [...p, ej.id])} className={`min-w-[48px] h-12 rounded-2xl border-2 flex items-center justify-center transition-all ${done ? "bg-green-500 border-green-400 text-black" : "border-white/20 text-slate-500"}`}>
-                                {done ? "✓" : ""}
-                              </button>
-                            )}
-                          </div>
-                          <div className="grid grid-cols-3 gap-3">
-                            <div className="bg-black/40 p-2 rounded-xl text-center">
-                              <p className="text-[8px] text-slate-500 font-black uppercase mb-1">Series</p>
-                              <input type="number" disabled={modoEntreno} value={ej.series} onChange={(e) => actualizarEjercicio(dia, ej.id, 'series', e.target.value)} className="bg-transparent w-full text-center font-bold outline-none text-white" />
-                            </div>
-                            <div className="bg-black/40 p-2 rounded-xl text-center">
-                              <p className="text-[8px] text-slate-500 font-black uppercase mb-1">Reps</p>
-                              <input type="number" disabled={modoEntreno} value={ej.reps} onChange={(e) => actualizarEjercicio(dia, ej.id, 'reps', e.target.value)} className="bg-transparent w-full text-center font-bold outline-none text-white" />
-                            </div>
-                            <div className="bg-blue-900/20 p-2 rounded-xl text-center border border-blue-500/30">
-                              <p className="text-[8px] text-blue-400 font-black uppercase mb-1">Peso KG</p>
-                              <input type="number" disabled={modoEntreno} value={ej.peso} onChange={(e) => actualizarEjercicio(dia, ej.id, 'peso', e.target.value)} className="bg-transparent w-full text-center font-bold outline-none text-blue-300" />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  <div className="flex flex-col gap-4">
+                    <button 
+                      onClick={() => setPantalla("menu")} 
+                      className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white transition-colors"
+                    >
+                      Volver al inicio
+                    </button>
+
+                    <button 
+                      onClick={() => {
+                        if(window.confirm("¿Quieres modificar tu plan? Se borrará la rutina actual para configurar nuevos días.")) {
+                          setRutina(null);
+                          setPantalla("seleccionDias");
+                        }
+                      }}
+                      className="py-4 px-6 rounded-2xl bg-red-500/5 border border-red-500/20 text-[10px] font-black uppercase tracking-[0.2em] text-red-500 active:scale-95 transition-all"
+                    >
+                      ⚙️ Modificar Plan
+                    </button>
                   </div>
                 </div>
-              ))}
+              ) : (
+
+
+                /* VISTA ENTRENAMIENTO ACTIVO */
+                <>
+                  <div className="sticky top-0 z-50 bg-black/90 backdrop-blur-xl p-5 border border-white/10 rounded-[2.5rem] mb-4 shadow-2xl">
+                    <div className="flex justify-between items-center mb-5 px-1">
+                      <h2 className="font-black italic text-blue-500 uppercase text-xs tracking-widest">Hoy: {hoy}</h2>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => { if(confirm("¿Borrar rutina?")) { setRutina(null); setPantalla("seleccionDias"); } }} className="text-[10px] font-black text-red-500 uppercase border-2 border-red-500/30 px-4 py-2 rounded-xl bg-red-500/10 active:scale-90 transition-all">🗑 Borrar</button>
+                        <button onClick={() => setPantalla("menu")} className="text-slate-500 text-sm font-bold">✕</button>
+                      </div>
+                    </div>
+                    <button onClick={modoEntreno ? finalizarEntrenamiento : () => setModoEntreno(true)} className={`w-full py-4 rounded-[1.5rem] font-black transition-all uppercase italic ${modoEntreno ? "bg-red-500 text-white" : "bg-green-500 text-black shadow-lg shadow-green-500/20"}`}>
+                      {modoEntreno ? "Finalizar Sesión" : "Empezar Entreno"}
+                    </button>
+                    {modoEntreno && <div className="mt-4"><CronometroDescanso tiempoInicial={60} /></div>}
+                  </div>
+
+                  {rutina[hoy] && (
+                    <div className="bg-black/40 border border-white/10 p-6 rounded-[2.5rem] backdrop-blur-md mb-6">
+                      <h3 className="text-xl font-black text-blue-400 mb-6 italic uppercase border-b border-white/10 pb-2">
+                        Enfoque: {rutina[hoy][0]?.enfoque}
+                      </h3>
+                      <div className="space-y-4">
+                        {rutina[hoy].map((ej) => {
+                          const done = completados.includes(ej.id);
+                          return (
+                            <div key={ej.id} className={`p-4 rounded-3xl border transition-all duration-300 ${done ? "bg-green-500/10 border-green-500/30 opacity-40 scale-[0.98]" : "bg-white/5 border-white/10 shadow-inner"}`}>
+                              <div className="flex justify-between items-center mb-4">
+                                <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg text-white uppercase italic cursor-pointer flex items-center gap-2">
+                                {ej.nombre} 
+                                {/* Esta etiqueta indica qué parte del cuerpo es en el MIX */}
+                                <span className="text-[8px] bg-white/10 text-slate-400 px-2 py-0.5 rounded-full border border-white/5 uppercase">
+                                  {ej.enfoque}
+                                  </span>
+                                </span>
+                                {modoEntreno && (
+                                  <button onClick={() => setCompletados(p => p.includes(ej.id) ? p.filter(id => id !== ej.id) : [...p, ej.id])} className={`min-w-[48px] h-12 rounded-2xl border-2 flex items-center justify-center transition-all ${done ? "bg-green-500 border-green-400 text-black" : "border-white/20 text-slate-500"}`}>
+                                    {done ? "✓" : ""}
+                                  </button>
+                                )}
+                              </div>
+                              <div className="grid grid-cols-3 gap-3">
+                                <div className="bg-black/40 p-2 rounded-xl text-center"><p className="text-[8px] text-slate-500 font-black uppercase mb-1">Series</p><input type="number" disabled={modoEntreno} value={ej.series} onChange={(e) => actualizarEjercicio(hoy, ej.id, 'series', e.target.value)} className="bg-transparent w-full text-center font-bold outline-none text-white" /></div>
+                                <div className="bg-black/40 p-2 rounded-xl text-center"><p className="text-[8px] text-slate-500 font-black uppercase mb-1">Reps</p><input type="number" disabled={modoEntreno} value={ej.reps} onChange={(e) => actualizarEjercicio(hoy, ej.id, 'reps', e.target.value)} className="bg-transparent w-full text-center font-bold outline-none text-white" /></div>
+                                <div className="bg-blue-900/20 p-2 rounded-xl text-center border border-blue-500/30"><p className="text-[8px] text-blue-400 font-black uppercase mb-1">Peso KG</p><input type="number" disabled={modoEntreno} value={ej.peso} onChange={(e) => actualizarEjercicio(hoy, ej.id, 'peso', e.target.value)} className="bg-transparent w-full text-center font-bold outline-none text-blue-300" /></div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           )}
 
@@ -229,9 +289,9 @@ export default function App() {
                         <span onClick={() => setEjercicioDetalle(ej)} className="font-bold text-lg uppercase italic cursor-pointer">{ej.nombre}</span>
                         <button onClick={() => {
                           const nueva = {...rutina};
-                          const dia = Object.keys(rutina)[0] || 'Lunes';
+                          const dia = hoy; 
                           if(!nueva[dia]) nueva[dia] = [];
-                          nueva[dia].push({...ej, id: Date.now(), series: "4", reps: "12", peso: "0"});
+                          nueva[dia].push({...ej, id: Date.now(), series: "4", reps: "12", peso: "0", enfoque: musculoSeleccionado.toLowerCase()});
                           setRutina(nueva);
                           setPantalla("mostrarRutina");
                         }} className="bg-blue-500 w-10 h-10 rounded-full font-black text-white">+</button>
@@ -269,45 +329,24 @@ export default function App() {
         </main>
       </div>
 
-      {/* --- MODAL DE DETALLE (EL QUE TIENE EL GIF) --- */}
+      {/* MODAL DE DETALLE */}
       {ejercicioDetalle && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
           <div className="absolute inset-0 bg-black/95 backdrop-blur-md" onClick={() => setEjercicioDetalle(null)}></div>
-          
           <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-sm rounded-[3rem] p-8 animate-in zoom-in shadow-[0_0_50px_rgba(0,0,0,1)]">
-            <h3 className="text-2xl font-black italic text-blue-500 uppercase mb-6 tracking-tighter text-center">
-              {ejercicioDetalle.nombre}
-            </h3>
-
+            <h3 className="text-2xl font-black italic text-blue-500 uppercase mb-6 tracking-tighter text-center">{ejercicioDetalle.nombre}</h3>
             <div className="w-full aspect-square bg-white/5 rounded-[2rem] overflow-hidden mb-6 border border-white/10 flex items-center justify-center relative">
               {ejercicioDetalle.gif ? (
-                <img 
-                  src={ejercicioDetalle.gif} 
-                  alt={ejercicioDetalle.nombre} 
-                  className="w-full h-full object-cover"
-                  key={ejercicioDetalle.gif} 
-                />
+                <img src={ejercicioDetalle.gif} alt={ejercicioDetalle.nombre} className="w-full h-full object-cover" key={ejercicioDetalle.gif} />
               ) : (
-                <div className="text-center p-6 text-slate-500">
-                  <p className="text-4xl mb-2">🏋️‍♂️</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest">Sin vista previa</p>
-                </div>
+                <div className="text-center p-6 text-slate-500"><p className="text-4xl mb-2">🏋️‍♂️</p><p className="text-[10px] font-black uppercase tracking-widest">Sin vista previa</p></div>
               )}
             </div>
-
             <div className="space-y-2 mb-8 text-center">
               <p className="text-[10px] font-black uppercase text-blue-500/50 tracking-widest">Técnica</p>
-              <p className="text-slate-300 text-sm leading-relaxed italic">
-                "{ejercicioDetalle.instrucciones || "Consulta la técnica con un profesional."}"
-              </p>
+              <p className="text-slate-300 text-sm leading-relaxed italic">"{ejercicioDetalle.instrucciones || "Consulta la técnica con un profesional."}"</p>
             </div>
-
-            <button 
-              onClick={() => setEjercicioDetalle(null)} 
-              className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg shadow-blue-500/20"
-            >
-              Cerrar
-            </button>
+            <button onClick={() => setEjercicioDetalle(null)} className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg shadow-blue-500/20">Cerrar</button>
           </div>
         </div>
       )}
