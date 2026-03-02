@@ -31,7 +31,8 @@ export const ejerciciosDB = {
       nombre: "Aperturas con mancuernas", 
       series: 3, reps: "12", peso: "8",
       instrucciones: "Baja las mancuernas hacia los lados con los codos ligeramente flexionados, sintiendo el estiramiento en el pecho. Vuelve a la posición inicial como si abrazaras un árbol.",
-      tips: "Evita bajar demasiado para proteger tus hombros."
+      tips: "Evita bajar demasiado para proteger tus hombros.",
+      gif: "/gifs/aperturas_mancuernas",
     }
   ],
   espalda: [
@@ -39,19 +40,21 @@ export const ejerciciosDB = {
       nombre: "Remo con mancuerna", 
       series: 3, reps: "10-12", peso: "12",
       instrucciones: "Apoya una mano y rodilla en un banco. Con la otra mano, lleva la mancuerna hacia tu cadera, manteniendo la espalda recta.",
-      tips: "Tira con el codo, no con la mano, para sentir el dorsal."
+      tips: "Tira con el codo, no con la mano, para sentir el dorsal.",
+      gif: "/gifs/remo_con_mancuernas.gif",
     },
     { 
       nombre: "Remo inclinado (ambas)", 
       series: 3, reps: "12", peso: "10",
       instrucciones: "Inclina el torso 45 grados, espalda recta. Tira de ambas mancuernas hacia tu ombligo apretando las escápulas.",
-      tips: "Mantén la mirada un metro por delante en el suelo para no forzar el cuello."
+      tips: "Mantén la mirada un metro por delante en el suelo para no forzar el cuello.",
+      gif: "/gifs/remo_inclinado_ambas.gif",
     },
     { 
       nombre: "Pájaro (Hombro posterior)", 
       series: 3, reps: "12", peso: "5",
-      instrucciones: "Torso inclinado casi paralelo al suelo. Eleva las mancuernas hacia los lados manteniendo una ligera flexión de codo.",
-      tips: "Aísla el movimiento, no uses impulso con el cuerpo."
+      instrucciones: "Coloque los brazos del cable a la altura de los hombros. Exhala manteniendo los brazos rectos, estira los hombros hacia los lados. Mantén la postura brevemente y luego regresa lentamente a la posición inicial",
+      gif: "/gifs/polea_trasera_cuerda.gif",
     }
   ],
   brazos: [
