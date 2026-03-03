@@ -269,6 +269,12 @@ espalda: [
       series: 3, reps: "12", peso: "5",
       instrucciones: "Eleva las mancuernas hacia los lados hasta que los brazos estén paralelos al suelo.",
       gif: "/gifs/Dumbbell-Lateral-Raise.gif"
+    },
+    { 
+      nombre: "Elevaciones laterales traseras", 
+      series: 3, reps: "12", peso: "5",
+      instrucciones: "Sentado en un banco. Pon las mancuernas debajo de las piernas. Eleva las mancuernas hacia los lados hasta que los brazos estén paralelos a la cabeza.",
+      gif: "/gifs/Seated-Rear-Lateral-Dumbbell-Raise.gif"
     }
   ],
   // PARTE ABDOMINAES Y CARDIO //
