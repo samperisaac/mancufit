@@ -96,6 +96,24 @@ export const ejerciciosDB = {
       gif: "/gifs/Hammer-Curl.gif"
     },
     { 
+      nombre: "Curl scott con mancuerna", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "De pie, con agarre neutral. Apolla el codo en un banco. Sube las mancuernas doblando el codo sin mover el hombro.",
+      gif: "/gifs/dumbbell-scot-curl.gif"
+    },
+    { 
+      nombre: "Curl con cable a un brazo", 
+      series: 3, reps: "12", peso: "cuerda",
+      instrucciones: "Sujete el mango con un agarre supino, manteniendo el codo pegado al costado, sube el mango hacia el hombro, mantenga la contracción durante un segundo y baje lentamente",
+      gif: "/gifs/One-Arm-Cable-Curl.gif"
+    },
+    { 
+      nombre: "Curl Zottman", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Es una variante del curl de bíceps que trabaja los bíceps y los antebrazos. Implica una combinación de movimientos de supinación y pronación de la muñeca durante el curl. Involucra a los músculos del bíceps y antebrazo.",
+      gif: "/gifs/zottman-curl.gif"
+    },
+    { 
       nombre: "Triturador de cráneo con mancuerna", 
       series: 3, reps: "10", peso: "6",
       instrucciones: "Tumbado, brazos extendidos. Dobla los codos bajando las pesas hacia tu frente y vuelve a extender.",
@@ -106,6 +124,24 @@ export const ejerciciosDB = {
       series: 3, reps: "10", peso: "6",
       instrucciones: "Sostenga una mancuerna. Coloque la mano opuesta sobre un banco para apoyarse. Exhala mientras extiendes el brazo completamente hacia atrás. Aprieta los tríceps. Inhala mientras regresas lentamente a la posición",
       gif: "/gifs/Dumbbell-Kickback.gif"
+    },
+    { 
+      nombre: "Extensión de tríceps acostado", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Acuéstese sobre un banco. Sostenga una mancuerna en una mano. Extiende tu brazo hacia arriba por encima de tu hombro. Doble lentamente el codo. Evite extender el codo hacia afuera.",
+      gif: "/gifs/One-Arm-Lying-Triceps-Extension.gif"
+    },
+    { 
+      nombre: "Extensión de tríceps con polea", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Comience en posición de plancha. Mantenga los pies separados a la altura de las caderas. Presione con los antebrazos y empuje la parte superior del cuerpo hacia arriba hasta que los codos estén completamente extendidos.",
+      gif: "/gifs/Kneeling-Cable-Extension.gif"
+    },
+    { 
+      nombre: "Body Ups", 
+      series: 3, reps: "10", peso: "peso personal",
+      instrucciones: "Arrodíllate en el suelo. Sujete el accesorio con un agarre superior, palmas hacia abajo y acérquelo a la frente.",
+      gif: "/gifs/Body-Ups.gif"
     },
     { 
       nombre: "Fondos en silla", 
