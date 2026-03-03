@@ -41,9 +41,7 @@ export const ejerciciosDB = {
       gif: "/gifs/Close-Grip-Dumbbell-Press.gif",
     }
   ],
-  
 // PARTE BRAZOS //
-
   biceps: [
     { 
       nombre: "Curl de bíceps", 
@@ -121,7 +119,6 @@ export const ejerciciosDB = {
       gif: "/gifs/CHAIR-DIPS.gif"
     }
   ],  
-
   // PARTE PIERNAS //
   Cuádriceps: [
     { 
@@ -177,7 +174,6 @@ export const ejerciciosDB = {
       gif: "/gifs/pendulum-lunge.gif"
     }
   ],
-
 // PARTE ESPALDA Y HOMBROS //
 espalda: [
     { 
@@ -257,9 +253,7 @@ espalda: [
       tips: "Imagina que viertes agua de una jarra al llegar arriba."
     }
   ],
-
   // PARTE ABDOMINAES Y CARDIO //
-
   abdomen: [
     { 
       nombre: "Plancha abdominal", 
@@ -296,6 +290,14 @@ espalda: [
       series: 3, reps: "20", peso: "5",
       instrucciones: "Acuéstese de lado. Coloque el antebrazo en el suelo con el codo justo debajo del hombro. Sostenga una mancuerna cerca de su costado. Levante las caderas de manera que su cuerpo forme una línea. Bajar con control.",
       gif: "/gifs/Single-Leg-Dumbbell-Side-Bridge.gif"
+    }
+  ],
+ Cardio: [
+    { 
+      nombre: "Burpees", 
+      series: 3, reps: "20", peso: "Peso humano",
+      instrucciones: "El Burpee Navy SEAL es un ejercicio de alta intensidad que combina elementos de un burpee estándar con flexiones y escaladores de montaña.",
+      gif: "/gifs/Burpees.gif"
     }
   ],
 };

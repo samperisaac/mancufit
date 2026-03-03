@@ -11,6 +11,7 @@ const zonasFrontal = [
     { id: 'abdomen', nombre: 'ABDOMEN', top: '40%', left: '50%', side: 'center' },
     { id: 'Cuádriceps', nombre: 'CUÁDRICEPS', top: '62%', left: '43%', side: 'center' },
     { id: 'Aductores', nombre: 'ADUCTORES', top: '52%', left: '50%', side: 'center' },
+    { id: 'Cardio', nombre: 'CARDIO', top: '80%', left: '77%', side: 'center' },
   ];
 
   const zonasTrasera = [
@@ -21,6 +22,7 @@ const zonasFrontal = [
     { id: 'Glúteos', nombre: 'GLÚTEO', top: '50%', left: '55%', side: 'center' },
     { id: 'triceps', nombre: 'TRICEPS', top: '30%', left: '75%', side: 'right' },
     { id: 'Isquiotibiales', nombre: 'Isquiotibiales', top: '62%', left: '40%', side: 'center' },
+    { id: 'Cardio', nombre: 'CARDIO', top: '85%', left: '27%', side: 'center' },
   ];
 
   const zonasActuales = vistaActiva === 'frontal' ? zonasFrontal : zonasTrasera;
