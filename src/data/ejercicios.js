@@ -57,11 +57,22 @@ export const ejerciciosDB = {
       gif: "/gifs/remo_inclinado_ambas.gif",
     },
     { 
-      nombre: "Pájaro (Hombro posterior)", 
+      nombre: "Polea atrás con media rodilla", 
+      series: 3, reps: "12", peso: "cuerda",
+      instrucciones: "Con una rodilla delante y la otra apollada en el suelo. Tira de arriba hacia abajo la cuerda quedando el puño a la altura del ombro",
+      gif: "/gifs/Half-Kneeling-Lat-Pulldown.gif",
+    },
+    { 
+      nombre: "Remo con mancuernas agarre invertido", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Banco a 40 grados, apollando el pecho en él y piernas estiradas hacia atrás. Deja caer los brazos hasta abajo. con el agarre invertido, levanta las mancuernas hasta la altura de la cadera. Bajando lentamente.",
+      gif: "/gifs/Incline-Reverse-Grip-Dumbbell-Row.gif",
+    },
+    { 
+      nombre: "Peso muerto con mancuernas", 
       series: 3, reps: "12", peso: "5",
-      instrucciones: "Coloque los brazos del cable a la altura de los hombros. Exhala manteniendo los brazos rectos, estira los hombros hacia los lados. Mantén la postura brevemente y luego regresa lentamente a la posición inicial",
-      tips: "no tires mucho de la cuerda",
-      gif: "/gifs/polea_trasera_cuerda.gif",
+      instrucciones: "El peso muerto de piernas trabaja muchos de los mismos músculos que un peso muerto. enfatiza más la espalda, los isquiotibiales y los músculos de la cadera.",
+      gif: "/gifs/Dumbbell-Straight-Leg-Deadlift.gif",
     }
   ],
   brazos: [
