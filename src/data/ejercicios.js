@@ -41,19 +41,144 @@ export const ejerciciosDB = {
       gif: "/gifs/Close-Grip-Dumbbell-Press.gif",
     }
   ],
-  espalda: [
+  
+// PARTE BRAZOS //
+
+  biceps: [
+    { 
+      nombre: "Curl de bíceps", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "De pie, palmas hacia adelante. Sube las mancuernas doblando el codo sin mover el hombro.",
+      tips: "No balancees la espalda para subir el peso.",
+      gif: "/gifs/Double-Arm-Dumbbell-Curl.gif"
+    },
+    { 
+      nombre: "Curl de martillo", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "De pie, con agarre neutral. Flexiona un brazo a la vez: exhala y flexiona una pesa hacia el hombro, mientras mantienes la otra pesa extendida y colgando a tu costado. Contrae tus bíceps y baja la mancuerna. Haz lo mismo con el otro brazo",
+      gif: "/gifs/Hammer-Curl.gif"
+    },
+    { 
+      nombre: "Curl scott con mancuerna", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "De pie, con agarre neutral. Apolla el codo en un banco. Sube las mancuernas doblando el codo sin mover el hombro.",
+      gif: "/gifs/dumbbell-scot-curl.gif"
+    },
+    { 
+      nombre: "Curl con cable a un brazo", 
+      series: 3, reps: "12", peso: "cuerda",
+      instrucciones: "Sujete el mango con un agarre supino, manteniendo el codo pegado al costado, sube el mango hacia el hombro, mantenga la contracción durante un segundo y baje lentamente",
+      gif: "/gifs/One-Arm-Cable-Curl.gif"
+    },
+    { 
+      nombre: "Curl de concentración", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "Siéntese en un banco. Coloca el codo en la parte interior del muslo. Levante el peso hacia el hombro. Haga una pausa en la parte superior del movimiento y luego baje lentamente",
+      gif: "/gifs/Concentration-Curl.gif"
+    },
+    { 
+      nombre: "Curl Zottman sentado", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "Comienza sentado en un banco, Sujete una mancuerna en cada mano con las palmas hacia arriba, Levanta las mancuernas hacia los hombros y  en la parte superior del curl gire las muñecas girando las palmas hacia abajo, comienza a bajar las mancuernas lentamente hasta la posición inicial",
+      gif: "/gifs/curl_zottman_sentado.gif"
+    }
+  ],
+    triceps: [
+    { 
+      nombre: "Triturador de cráneo con mancuerna", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Tumbado, brazos extendidos. Dobla los codos bajando las pesas hacia tu frente y vuelve a extender.",
+      gif: "/gifs/Dumbbell-Skull-Crusher.gif"
+    },
+    { 
+      nombre: "Patada hacia atrás con mancuerna", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Sostenga una mancuerna. Coloque la mano opuesta sobre un banco para apoyarse. Exhala mientras extiendes el brazo completamente hacia atrás. Aprieta los tríceps. Inhala mientras regresas lentamente a la posición",
+      gif: "/gifs/Dumbbell-Kickback.gif"
+    },
+    { 
+      nombre: "Extensión de tríceps acostado", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Acuéstese sobre un banco. Sostenga una mancuerna en una mano. Extiende tu brazo hacia arriba por encima de tu hombro. Doble lentamente el codo. Evite extender el codo hacia afuera.",
+      gif: "/gifs/One-Arm-Lying-Triceps-Extension.gif"
+    },
+    { 
+      nombre: "Extensión de tríceps con polea", 
+      series: 3, reps: "10", peso: "6",
+      instrucciones: "Comience en posición de plancha. Mantenga los pies separados a la altura de las caderas. Presione con los antebrazos y empuje la parte superior del cuerpo hacia arriba hasta que los codos estén completamente extendidos.",
+      gif: "/gifs/Kneeling-Cable-Extension.gif"
+    },
+    { 
+      nombre: "Body Ups", 
+      series: 3, reps: "10", peso: "peso personal",
+      instrucciones: "Arrodíllate en el suelo. Sujete el accesorio con un agarre superior, palmas hacia abajo y acérquelo a la frente.",
+      gif: "/gifs/Body-Ups.gif"
+    },
+    { 
+      nombre: "Fondos en silla", 
+      series: 3, reps: "20", peso: "0",
+      instrucciones: "Baje lentamente el cuerpo doblando los codos hasta que alcancen un ángulo de 90 grados. Mantenga la espalda pegada a la silla. Haz una breve pausa en la parte inferior, luego empuja con las palmas para extender los brazos y volver a la posición inicial.",
+      gif: "/gifs/CHAIR-DIPS.gif"
+    }
+  ],  
+
+  // PARTE PIERNAS //
+  Cuádriceps: [
+    { 
+      nombre: "elevaciones pantorrilla", 
+      series: 3, reps: "15", peso: "Peso corporal",
+      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
+      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
+      gif: "/gifs/elevaciones_pantorrilla.gif"
+    }
+  ],
+  Aductores: [
+    { 
+      nombre: "Estocada de péndulo", 
+      series: 3, reps: "12", peso: "Peso corporal",
+      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
+      gif: "/gifs/pendulum-lunge.gif"
+    }
+  ],
+  Glúteos: [
+    { 
+      nombre: "Zancadas (Lunges)", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Da un paso largo hacia adelante y baja la rodilla trasera hasta casi tocar el suelo. Ambas rodillas deben formar 90 grados.",
+      tips: "Mantén el torso erguido para trabajar más el glúteo."
+    },
+    { 
+      nombre: "Sentadilla búlgara", 
+      series: 3, reps: "10", peso: "5",
+      instrucciones: "Un pie apoyado atrás en un banco o silla. Baja con la pierna delantera. Muy exigente para el equilibrio.",
+      gif: "/gifs/Dumbbell-Bulgarian-Split-Squat.gif"
+    }
+  ],
+  Isquiotibiales: [
+    { 
+      nombre: "Estocada de péndulo", 
+      series: 3, reps: "12", peso: "Peso corporal",
+      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
+      gif: "/gifs/pendulum-lunge.gif"
+    }
+  ],
+  Gemelos: [
+    { 
+      nombre: "Estocada de péndulo", 
+      series: 3, reps: "12", peso: "Peso corporal",
+      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
+      gif: "/gifs/pendulum-lunge.gif"
+    }
+  ],
+
+// parte espalda y hombros //
+espalda: [
     { 
       nombre: "Remo con mancuerna", 
       series: 3, reps: "10-12", peso: "12",
       instrucciones: "Apoya una mano y rodilla en un banco. Con la otra mano, lleva la mancuerna hacia tu cadera, manteniendo la espalda recta.",
       tips: "Tira con el codo, no con la mano, para sentir el dorsal.",
       gif: "/gifs/remo_con_mancuernas.gif",
-    },
-    { 
-      nombre: "Encogimiento de hombros", 
-      series: 3, reps: "12", peso: "10",
-      instrucciones: "Sostén una mancuerna en cada mano con las palmas hacia el cuerpo. Levanta lentamente los hombros hacia las orejas lo más alto posible, mantén la posición superior por un momento y baja lentamente las mancuernas hasta la posición inicial.",
-      gif: "/gifs/Dumbbell-Shrug.gif",
     },
     { 
       nombre: "Remo inclinado (ambas)", 
@@ -93,114 +218,6 @@ export const ejerciciosDB = {
       gif: "/gifs/Dumbbell-Straight-Leg-Deadlift.gif",
     }
   ],
-  brazos: [
-    { 
-      nombre: "Curl de bíceps", 
-      series: 3, reps: "12", peso: "8",
-      instrucciones: "De pie, palmas hacia adelante. Sube las mancuernas doblando el codo sin mover el hombro.",
-      tips: "No balancees la espalda para subir el peso.",
-      gif: "/gifs/Double-Arm-Dumbbell-Curl.gif"
-    },
-    { 
-      nombre: "Curl de martillo", 
-      series: 3, reps: "12", peso: "8",
-      instrucciones: "De pie, con agarre neutral. Flexiona un brazo a la vez: exhala y flexiona una pesa hacia el hombro, mientras mantienes la otra pesa extendida y colgando a tu costado. Contrae tus bíceps y baja la mancuerna. Haz lo mismo con el otro brazo",
-      gif: "/gifs/Hammer-Curl.gif"
-    },
-    { 
-      nombre: "Curl scott con mancuerna", 
-      series: 3, reps: "12", peso: "8",
-      instrucciones: "De pie, con agarre neutral. Apolla el codo en un banco. Sube las mancuernas doblando el codo sin mover el hombro.",
-      gif: "/gifs/dumbbell-scot-curl.gif"
-    },
-    { 
-      nombre: "Curl con cable a un brazo", 
-      series: 3, reps: "12", peso: "cuerda",
-      instrucciones: "Sujete el mango con un agarre supino, manteniendo el codo pegado al costado, sube el mango hacia el hombro, mantenga la contracción durante un segundo y baje lentamente",
-      gif: "/gifs/One-Arm-Cable-Curl.gif"
-    },
-    { 
-      nombre: "Curl Zottman", 
-      series: 3, reps: "12", peso: "10",
-      instrucciones: "Es una variante del curl de bíceps que trabaja los bíceps y los antebrazos. Implica una combinación de movimientos de supinación y pronación de la muñeca durante el curl. Involucra a los músculos del bíceps y antebrazo.",
-      gif: "/gifs/zottman-curl.gif"
-    },
-    { 
-      nombre: "Triturador de cráneo con mancuerna", 
-      series: 3, reps: "10", peso: "6",
-      instrucciones: "Tumbado, brazos extendidos. Dobla los codos bajando las pesas hacia tu frente y vuelve a extender.",
-      gif: "/gifs/Dumbbell-Skull-Crusher.gif"
-    },
-    { 
-      nombre: "Patada hacia atrás con mancuerna", 
-      series: 3, reps: "10", peso: "6",
-      instrucciones: "Sostenga una mancuerna. Coloque la mano opuesta sobre un banco para apoyarse. Exhala mientras extiendes el brazo completamente hacia atrás. Aprieta los tríceps. Inhala mientras regresas lentamente a la posición",
-      gif: "/gifs/Dumbbell-Kickback.gif"
-    },
-    { 
-      nombre: "Extensión de tríceps acostado", 
-      series: 3, reps: "10", peso: "6",
-      instrucciones: "Acuéstese sobre un banco. Sostenga una mancuerna en una mano. Extiende tu brazo hacia arriba por encima de tu hombro. Doble lentamente el codo. Evite extender el codo hacia afuera.",
-      gif: "/gifs/One-Arm-Lying-Triceps-Extension.gif"
-    },
-    { 
-      nombre: "Extensión de tríceps con polea", 
-      series: 3, reps: "10", peso: "6",
-      instrucciones: "Comience en posición de plancha. Mantenga los pies separados a la altura de las caderas. Presione con los antebrazos y empuje la parte superior del cuerpo hacia arriba hasta que los codos estén completamente extendidos.",
-      gif: "/gifs/Kneeling-Cable-Extension.gif"
-    },
-    { 
-      nombre: "Body Ups", 
-      series: 3, reps: "10", peso: "peso personal",
-      instrucciones: "Arrodíllate en el suelo. Sujete el accesorio con un agarre superior, palmas hacia abajo y acérquelo a la frente.",
-      gif: "/gifs/Body-Ups.gif"
-    },
-    { 
-      nombre: "Fondos en silla", 
-      series: 3, reps: "20", peso: "0",
-      instrucciones: "Baje lentamente el cuerpo doblando los codos hasta que alcancen un ángulo de 90 grados. Mantenga la espalda pegada a la silla. Haz una breve pausa en la parte inferior, luego empuja con las palmas para extender los brazos y volver a la posición inicial.",
-      gif: "/gifs/CHAIR-DIPS.gif"
-    },
-    { 
-      nombre: "Curl de concentración", 
-      series: 3, reps: "12", peso: "8",
-      instrucciones: "Siéntese en un banco. Coloca el codo en la parte interior del muslo. Levante el peso hacia el hombro. Haga una pausa en la parte superior del movimiento y luego baje lentamente",
-      gif: "/gifs/Concentration-Curl.gif"
-    },
-    { 
-      nombre: "Curl Zottman sentado", 
-      series: 3, reps: "12", peso: "8",
-      instrucciones: "Comienza sentado en un banco, Sujete una mancuerna en cada mano con las palmas hacia arriba, Levanta las mancuernas hacia los hombros y  en la parte superior del curl gire las muñecas girando las palmas hacia abajo, comienza a bajar las mancuernas lentamente hasta la posición inicial",
-      gif: "/gifs/curl_zottman_sentado.gif"
-    }
-  ],
-  piernas: [
-    { 
-      nombre: "elevaciones pantorrilla", 
-      series: 3, reps: "15", peso: "Peso corporal",
-      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
-      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
-      gif: "/gifs/elevaciones_pantorrilla.gif"
-    },
-    { 
-      nombre: "Estocada de péndulo", 
-      series: 3, reps: "12", peso: "Peso corporal",
-      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
-      gif: "/gifs/pendulum-lunge.gif"
-    },
-    { 
-      nombre: "Zancadas (Lunges)", 
-      series: 3, reps: "12", peso: "10",
-      instrucciones: "Da un paso largo hacia adelante y baja la rodilla trasera hasta casi tocar el suelo. Ambas rodillas deben formar 90 grados.",
-      tips: "Mantén el torso erguido para trabajar más el glúteo."
-    },
-    { 
-      nombre: "Sentadilla búlgara", 
-      series: 3, reps: "10", peso: "5",
-      instrucciones: "Un pie apoyado atrás en un banco o silla. Baja con la pierna delantera. Muy exigente para el equilibrio.",
-      gif: "/gifs/Dumbbell-Bulgarian-Split-Squat.gif"
-    }
-  ],
   hombros: [
     { 
       nombre: "Press militar mancuernas", 
@@ -221,12 +238,21 @@ export const ejerciciosDB = {
       gif: "/gifs/Dumbbell-Raise.gif"
     },
     { 
+      nombre: "Encogimiento de hombros", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Sostén una mancuerna en cada mano con las palmas hacia el cuerpo. Levanta lentamente los hombros hacia las orejas lo más alto posible, mantén la posición superior por un momento y baja lentamente las mancuernas hasta la posición inicial.",
+      gif: "/gifs/Dumbbell-Shrug.gif",
+    },
+    { 
       nombre: "Elevaciones laterales", 
       series: 3, reps: "12", peso: "5",
       instrucciones: "Eleva las mancuernas hacia los lados hasta que los brazos estén paralelos al suelo.",
       tips: "Imagina que viertes agua de una jarra al llegar arriba."
     }
   ],
+
+  // PARTE ABDOMINAES Y CARDIO //
+
   abdomen: [
     { 
       nombre: "Plancha abdominal", 
@@ -241,12 +267,4 @@ export const ejerciciosDB = {
       tips: "Sigue el movimiento con la mirada para rotar bien el torso."
     }
   ],
-  gemelos: [
-    { 
-      nombre: "Elevación talones de pie", 
-      series: 4, reps: "20", peso: "10",
-      instrucciones: "Ponte de puntillas lo más alto posible, aguanta un segundo y baja lentamente.",
-      tips: "Haz el movimiento lento para evitar el rebote del tendón."
-    }
-  ]
 };
