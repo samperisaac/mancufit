@@ -173,8 +173,13 @@ export const ejerciciosDB = {
     { 
       nombre: "elevaciones pantorrilla", 
       series: 3, reps: "15", peso: "Peso corporal",
-      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
-      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
+      instrucciones: "Coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
+      gif: "/gifs/elevaciones_pantorrilla.gif"
+    },
+    { 
+      nombre: "elevaciones pantorrilla con sentadilla", 
+      series: 3, reps: "15", peso: "Peso corporal",
+      instrucciones: "La Elevación de Pantorrillas con Sentadillas es un ejercicio híbrido para la parte inferior del cuerpo que combina una sentadilla isométrica con elevaciones de pantorrillas dinámicas.",
       gif: "/gifs/elevaciones_pantorrilla.gif"
     }
   ],
@@ -227,12 +232,6 @@ espalda: [
   ],
   hombros: [
     { 
-      nombre: "Press militar mancuernas", 
-      series: 3, reps: "10", peso: "10",
-      instrucciones: "Sentado o de pie. Empuja las mancuernas desde los hombros hacia el techo hasta estirar los brazos.",
-      tips: "No archives la espalda baja, mantén el abdomen fuerte."
-    },
-    { 
       nombre: "Elevación en T inclinada", 
       series: 3, reps: "12", peso: "10",
       instrucciones: "El ejercicio de elevación en T inclinada con mancuernas trabaja especialmente las regiones laterales y posteriores de los hombros.",
@@ -245,6 +244,12 @@ espalda: [
       gif: "/gifs/Dumbbell-Raise.gif"
     },
     { 
+      nombre: "Press de hombros con mancuernas", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Párese erguido con los pies separados al ancho de los hombros. Sostenga una mancuerna en cada mano. Levante las mancuernas por encima de la cabeza. Baje las mancuernas con control.",
+      gif: "/gifs/Standing-Dumbbell-Overhead-Press.gif",
+    },
+    { 
       nombre: "Encogimiento de hombros", 
       series: 3, reps: "12", peso: "10",
       instrucciones: "Sostén una mancuerna en cada mano con las palmas hacia el cuerpo. Levanta lentamente los hombros hacia las orejas lo más alto posible, mantén la posición superior por un momento y baja lentamente las mancuernas hasta la posición inicial.",
@@ -254,7 +259,7 @@ espalda: [
       nombre: "Elevaciones laterales", 
       series: 3, reps: "12", peso: "5",
       instrucciones: "Eleva las mancuernas hacia los lados hasta que los brazos estén paralelos al suelo.",
-      tips: "Imagina que viertes agua de una jarra al llegar arriba."
+      gif: "/gifs/Dumbbell-Lateral-Raise.gif"
     }
   ],
   // PARTE ABDOMINAES Y CARDIO //
