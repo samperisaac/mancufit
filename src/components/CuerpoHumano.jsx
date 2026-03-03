@@ -9,9 +9,8 @@ const zonasFrontal = [
     { id: 'pecho', nombre: 'PECHO', top: '25%', left: '50%', side: 'center' },
     { id: 'biceps', nombre: 'BICEPS', top: '33%', left: '73%', side: 'right' },
     { id: 'abdomen', nombre: 'ABDOMEN', top: '40%', left: '50%', side: 'center' },
-    { id: 'cuadriceps', nombre: 'CUADRICEPS', top: '62%', left: '43%', side: 'center' },
-    { id: 'aductores', nombre: 'ADUCTORES', top: '52%', left: '50%', side: 'center' },
-    { id: 'cardio', nombre: 'CARDIO', top: '80%', left: '77%', side: 'center' },
+    { id: 'cuadriceps', nombre: 'CUADRICEPS', top: '57%', left: '43%', side: 'center' },
+    { id: 'cardio', nombre: 'CARDIO', top: '75%', left: '74%', side: 'center' },
   ];
 
   const zonasTrasera = [

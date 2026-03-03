@@ -122,11 +122,16 @@ export const ejerciciosDB = {
   // PARTE PIERNAS //
   cuadriceps: [
     { 
-      nombre: "elevaciones pantorrilla", 
+      nombre: "Sentadilla copa con elevación del talón", 
       series: 3, reps: "15", peso: "Peso corporal",
-      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
-      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
-      gif: "/gifs/elevaciones_pantorrilla.gif"
+      instrucciones: "Párese con los talones elevados. Sostenga una mancuerna. Mantenga el pecho erguido. Póngase en cuclillas lentamente. Baje hasta la profundidad máxima.",
+      gif: "/gifs/Heel-Elevated-Goblet-Squat.gif"
+    },
+    { 
+      nombre: "Step lateral con mancuernas", 
+      series: 3, reps: "15", peso: "Peso corporal",
+      instrucciones: "Con el cuerpo recto. Mancuernas en los laterales. Suba al banco de forma lateral.",
+      gif: "/gifs/Dumbbell-Lateral-Step-Up.gif"
     },
     { 
       nombre: "Patada tijera", 
@@ -136,20 +141,12 @@ export const ejerciciosDB = {
       gif: "/gifs/Lying-Scissor-Kick.gif"
     }
   ],
-  aductores: [
-    { 
-      nombre: "Estocada de péndulo", 
-      series: 3, reps: "12", peso: "Peso corporal",
-      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
-      gif: "/gifs/pendulum-lunge.gif"
-    }
-  ],
   gluteos: [
     { 
-      nombre: "Zancadas (Lunges)", 
+      nombre: "Peso muerto rumano con mancuernas", 
       series: 3, reps: "12", peso: "10",
-      instrucciones: "Da un paso largo hacia adelante y baja la rodilla trasera hasta casi tocar el suelo. Ambas rodillas deben formar 90 grados.",
-      tips: "Mantén el torso erguido para trabajar más el glúteo."
+      instrucciones: "Con el cuerpo recto, contraiga el centro del cuerpo, mantenga el pecho elevado y una ligera flexión en las rodillas durante todo el movimiento. Baje las mancuernas a lo largo de la parte delantera de las piernas. Continúe bajando las mancuernas hasta que sienta un estiramiento en los isquiotibiales",
+      gif: "/gifs/Dumbbell-Romanian-Deadlift.gif"
     },
     { 
       nombre: "Sentadilla búlgara", 
@@ -160,18 +157,25 @@ export const ejerciciosDB = {
   ],
   isquiotibiales: [
     { 
-      nombre: "Estocada de péndulo", 
-      series: 3, reps: "12", peso: "Peso corporal",
-      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
-      gif: "/gifs/pendulum-lunge.gif"
+      nombre: "Isquios con mancuernas", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Sostenga una mancuerna horizontalmente sobre la parte superior de la espalda. Baje el torso mientras mueve las caderas hacia adelante.",
+      gif: "/gifs/Dumbbell-Good-Morning.gif"
+    },
+    { 
+      nombre: "Curl de piernas con mancuernas acostado", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Encima del banco, el cuerpo boca abajo, coge una mancuerna con los pies y levanta hasta que estire el isquio.",
+      gif: "/gifs/Lying-Dumbbell-Leg-Curl.gif"
     }
   ],
   gemelos: [
     { 
-      nombre: "Estocada de péndulo", 
-      series: 3, reps: "12", peso: "Peso corporal",
-      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
-      gif: "/gifs/pendulum-lunge.gif"
+      nombre: "elevaciones pantorrilla", 
+      series: 3, reps: "15", peso: "Peso corporal",
+      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
+      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
+      gif: "/gifs/elevaciones_pantorrilla.gif"
     }
   ],
 // PARTE ESPALDA Y HOMBROS //
@@ -298,6 +302,30 @@ espalda: [
       series: 3, reps: "20", peso: "Peso humano",
       instrucciones: "El Burpee Navy SEAL es un ejercicio de alta intensidad que combina elementos de un burpee estándar con flexiones y escaladores de montaña.",
       gif: "/gifs/Burpees.gif"
+    },
+    { 
+      nombre: "Giros de codo a rodilla", 
+      series: 3, reps: "30 seg", peso: "Peso humano",
+      instrucciones: "Giros de codo a rodilla",
+      gif: "/gifs/Elbow-To-Knee-Twists.gif"
+    },
+    { 
+      nombre: "Saltos rápidos", 
+      series: 3, reps: "30 seg", peso: "Peso humano",
+      instrucciones: "Los saltos rápidos son un ejercicio pliométrico. Los ejercicios pliométricos son movimientos aeróbicos explosivos que aumentan la velocidad, la rapidez y la potencia, y trabajan todo el cuerpo. Los saltos rápidos trabajan los músculos abdominales, los músculos de la cadera y los flexores de la cadera y también los muslos, los tendones de la rodilla, los cuádriceps y los hombros.",
+      gif: "/gifs/SNAP-JUMPS.gif"
+    },
+    { 
+      nombre: "Sentadilla con rodillas altas", 
+      series: 3, reps: "30 seg", peso: "Peso humano",
+      instrucciones: "Sentadilla con rodillas altas",
+      gif: "/gifs/High-Knee-Squat.gif"
+    },
+    { 
+      nombre: "Salto de tijera", 
+      series: 3, reps: "30 seg", peso: "Peso humano",
+      instrucciones: "Los saltos de tijera son un ejercicio pliométrico. Los ejercicios pliométricos son movimientos aeróbicos explosivos que aumentan la velocidad, la rapidez y la potencia, y trabajan todo el cuerpo.",
+      gif: "/gifs/Jumping-jack.gif"
     }
   ],
 };
