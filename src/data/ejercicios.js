@@ -183,7 +183,7 @@ export const ejerciciosDB = {
       gif: "/gifs/elevaciones_pantorrilla.gif"
     }
   ],
-// PARTE ESPALDA Y HOMBROS //
+// PARTE ESPALDA, TRAPECIO Y HOMBROS //
 espalda: [
     { 
       nombre: "Remo con mancuerna", 
@@ -230,6 +230,15 @@ espalda: [
       gif: "/gifs/Dumbbell-Straight-Leg-Deadlift.gif",
     }
   ],
+    trapecio: [
+    { 
+      nombre: "Encogimiento de hombros con mancuernas", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Los encogimientos de hombros con mancuernas son un ejercicio que trabaja principalmente los músculos trapecios, ubicados en la parte superior de la espalda y el cuello.",
+      gif: "/gifs/Encogimiento_hombros.gif",
+    }
+  ],  
+
   hombros: [
     { 
       nombre: "Elevación en T inclinada", 
