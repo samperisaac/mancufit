@@ -69,6 +69,12 @@ export const ejerciciosDB = {
       gif: "/gifs/Incline-Reverse-Grip-Dumbbell-Row.gif",
     },
     { 
+      nombre: "Remo sentado con banda", 
+      series: 3, reps: "12", peso: "cuerda",
+      instrucciones: "Sentado en el suelo, espalda 90 grados. Tira de la cuerda hacia ti.",
+      gif: "/gifs/Band-Seated-Row.gif",
+    },
+    { 
       nombre: "Peso muerto con mancuernas", 
       series: 3, reps: "12", peso: "5",
       instrucciones: "El peso muerto de piernas trabaja muchos de los mismos músculos que un peso muerto. enfatiza más la espalda, los isquiotibiales y los músculos de la cadera.",
@@ -82,6 +88,12 @@ export const ejerciciosDB = {
       instrucciones: "De pie, palmas hacia adelante. Sube las mancuernas doblando el codo sin mover el hombro.",
       tips: "No balancees la espalda para subir el peso.",
       gif: "/gifs/Double-Arm-Dumbbell-Curl.gif"
+    },
+    { 
+      nombre: "Curl de martillo", 
+      series: 3, reps: "12", peso: "8",
+      instrucciones: "De pie, con agarre neutral. Flexiona un brazo a la vez: exhala y flexiona una pesa hacia el hombro, mientras mantienes la otra pesa extendida y colgando a tu costado. Contrae tus bíceps y baja la mancuerna. Haz lo mismo con el otro brazo",
+      gif: "/gifs/Hammer-Curl.gif"
     },
     { 
       nombre: "Triturador de cráneo con mancuerna", 
