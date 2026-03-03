@@ -1,13 +1,6 @@
 export const ejerciciosDB = {
   pecho: [
     { 
-      nombre: "Press de martillo con mancuernas inclinado", 
-      series: 3, reps: "10-12", peso: "10",
-      instrucciones: "Ajuste el banco inclinado a un ángulo de 30 a 45 grados. Comience con las mancuernas a la altura de los hombros, los codos doblados y las manos alineadas con el torso. Empuja las mancuernas hacia arriba y ligeramente hacia adentro de manera controlada.",
-      tips: "No choques las mancuernas arriba, mantén la tensión en el pectoral.",
-      gif: "/gifs/press_martillo_inclinado.gif",
-    },
-    { 
       nombre: "Press declinado con mancuernas", 
       series: 3, reps: "10-12", peso: "10",
       instrucciones: "Túmbate en un banco plano. Empuja las mancuernas hacia arriba sobre el pecho, extendiendo los brazos. Baja lentamente hasta que los codos queden ligeramente por debajo de los hombros.",
@@ -15,10 +8,10 @@ export const ejerciciosDB = {
       gif: "/gifs/press_declinado_mancuernas.gif",
     },
     { 
-      nombre: "balanceos de brazos cruzados", 
+      nombre: "Vuelo con mancuernas", 
       series: 3, reps: "12-15", peso: "0",
-      instrucciones: "Estire los brazos hacia los lados a la altura de los hombros, balancea los brazos sobre el pecho, superponiendo uno sobre el otro como si fueran tijeras.",
-      gif: "/gifs/balanceo_brazos_cruzados.gif",
+      instrucciones: "Acuéstese sobre un banco. Sostenga una mancuerna en cada mano con un agarre neutral. Extiende los brazos por encima del pecho, manteniendo una ligera flexión en los codos para reducir la tensión en las articulaciones. Baja lentamente las mancuernas formando un arco amplio.",
+      gif: "/gifs/Dumbbell-Fly.gif",
     },
     { 
       nombre: "Flexiones (Suelo)", 
@@ -241,6 +234,13 @@ espalda: [
 
   hombros: [
     { 
+      nombre: "Press de martillo con mancuernas inclinado", 
+      series: 3, reps: "10-12", peso: "10",
+      instrucciones: "Ajuste el banco inclinado a un ángulo de 30 a 45 grados. Comience con las mancuernas a la altura de los hombros, los codos doblados y las manos alineadas con el torso. Empuja las mancuernas hacia arriba y ligeramente hacia adentro de manera controlada.",
+      tips: "No choques las mancuernas arriba, mantén la tensión en el pectoral.",
+      gif: "/gifs/press_martillo_inclinado.gif",
+    },
+    { 
       nombre: "Elevación en T inclinada", 
       series: 3, reps: "12", peso: "10",
       instrucciones: "El ejercicio de elevación en T inclinada con mancuernas trabaja especialmente las regiones laterales y posteriores de los hombros.",
@@ -322,6 +322,12 @@ espalda: [
       series: 3, reps: "20", peso: "Peso humano",
       instrucciones: "El Burpee Navy SEAL es un ejercicio de alta intensidad que combina elementos de un burpee estándar con flexiones y escaladores de montaña.",
       gif: "/gifs/Burpees.gif"
+    },
+    { 
+      nombre: "balanceos de brazos cruzados", 
+      series: 3, reps: "12-15", peso: "0",
+      instrucciones: "Estire los brazos hacia los lados a la altura de los hombros, balancea los brazos sobre el pecho, superponiendo uno sobre el otro como si fueran tijeras.",
+      gif: "/gifs/balanceo_brazos_cruzados.gif",
     },
     { 
       nombre: "Giros de codo a rodilla", 
