@@ -21,11 +21,10 @@ export const ejerciciosDB = {
       gif: "/gifs/flexiones.gif",
     },
     { 
-      nombre: "Aperturas con mancuernas", 
+      nombre: "Press de mancuernas inclinado con agarre cerrado", 
       series: 3, reps: "12", peso: "8",
-      instrucciones: "Baja las mancuernas hacia los lados con los codos ligeramente flexionados, sintiendo el estiramiento en el pecho. Vuelve a la posición inicial como si abrazaras un árbol.",
-      tips: "Evita bajar demasiado para proteger tus hombros.",
-      gif: "/gifs/apertura_mancuernas.gif",
+      instrucciones: "Banco a una inclinación de 45 grados.Sostenga las mancuernas juntas a la distancia de los brazos por encima de la parte superior del pecho. Mantenga los codos cerca del torso. Baje lentamente las mancuernas hacia la parte superior del pecho y luego empuja las mancuernas hacia la posición inicial.",
+      gif: "/gifs/Close-grip-Incline-Dumbbell-Press.gif",
     },
     { 
       nombre: "Press mancuerna agarre cerrado", 
