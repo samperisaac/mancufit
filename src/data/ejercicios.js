@@ -130,6 +130,13 @@ export const ejerciciosDB = {
       instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
       tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
       gif: "/gifs/elevaciones_pantorrilla.gif"
+    },
+    { 
+      nombre: "Patada tijera", 
+      series: 3, reps: "15", peso: "Peso corporal",
+      instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
+      tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
+      gif: "/gifs/Lying-Scissor-Kick.gif"
     }
   ],
   Aductores: [
@@ -171,7 +178,7 @@ export const ejerciciosDB = {
     }
   ],
 
-// parte espalda y hombros //
+// PARTE ESPALDA Y HOMBROS //
 espalda: [
     { 
       nombre: "Remo con mancuerna", 
@@ -256,15 +263,39 @@ espalda: [
   abdomen: [
     { 
       nombre: "Plancha abdominal", 
-      series: 3, reps: "45 seg", peso: "0",
+      series: 3, reps: "45 seg", peso: "Peso humano",
       instrucciones: "Apóyate en los antebrazos y puntas de los pies. Mantén el cuerpo rígido como una tabla.",
-      tips: "No dejes que la cadera caiga ni la subas demasiado."
+      gif: "/gifs/plank.gif"
     },
     { 
-      nombre: "Russian Twist", 
+      nombre: "Bandera de dragón", 
+      series: 3, reps: "20", peso: "Peso humano",
+      instrucciones: "Acuéstese boca arriba sobre un banco. Levanta las piernas y las caderas del banco. Contraiga los músculos del torso. A continuación, baja lentamente las piernas y las caderas hacia el banco. ",
+      gif: "/gifs/Leg-Raise-Dragon-Flag.gif"
+    },
+    { 
+      nombre: "Tuck Crunch", 
+      series: 3, reps: "20", peso: "Peso humano",
+      instrucciones: "Tuck crunch es un ejercicio simple diseñado para fortalecer, desarrollar y dar forma a los músculos abdominales superiores y al six-pack.",
+      gif: "/gifs/Tuck-Crunch.gif"
+    },
+    { 
+      nombre: "Flexión de piernas", 
+      series: 3, reps: "20", peso: "Peso humano",
+      instrucciones: "Comience sentándose en un banco. Levanta las piernas del suelo. Mantenga la contracción por un momento y extiende lentamente las piernas hasta la posición inicial.",
+      gif: "/gifs/Seated-Bench-Leg-Pull-in.gif"
+    },
+    { 
+      nombre: "Toque talón", 
+      series: 3, reps: "20", peso: "Peso humano",
+      instrucciones: "Acuéstate boca arriba con los brazos a los costados, flexiona las rodillas. Lleva tu mano derecha hacia abajo lo más que puedas en dirección a tu pie derecho con un movimiento lento y controlado. Haz una breve pausa, vuelve a la posición inicial y alterna el número de repeticiones necesarias.",
+      gif: "/gifs/Heel-Touch.gif"
+    },
+    { 
+      nombre: "Puente lateral", 
       series: 3, reps: "20", peso: "5",
-      instrucciones: "Sentado, rodillas flexionadas y pies en el aire. Gira el torso de lado a lado tocando el suelo con las manos o una pesa.",
-      tips: "Sigue el movimiento con la mirada para rotar bien el torso."
+      instrucciones: "Acuéstese de lado. Coloque el antebrazo en el suelo con el codo justo debajo del hombro. Sostenga una mancuerna cerca de su costado. Levante las caderas de manera que su cuerpo forme una línea. Bajar con control.",
+      gif: "/gifs/Single-Leg-Dumbbell-Side-Bridge.gif"
     }
   ],
 };
