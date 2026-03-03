@@ -172,7 +172,7 @@ export const ejerciciosDB = {
       nombre: "elevaciones pantorrilla con sentadilla", 
       series: 3, reps: "15", peso: "Peso corporal",
       instrucciones: "La Elevación de Pantorrillas con Sentadillas es un ejercicio híbrido para la parte inferior del cuerpo que combina una sentadilla isométrica con elevaciones de pantorrillas dinámicas.",
-      gif: "/gifs/elevaciones_pantorrilla.gif"
+      gif: "/gifs/pendulum-lunge.gif"
     }
   ],
 // PARTE ESPALDA, TRAPECIO Y HOMBROS //
@@ -228,6 +228,12 @@ espalda: [
       series: 3, reps: "12", peso: "10",
       instrucciones: "Los encogimientos de hombros con mancuernas son un ejercicio que trabaja principalmente los músculos trapecios, ubicados en la parte superior de la espalda y el cuello.",
       gif: "/gifs/Encogimiento_hombros.gif",
+    },
+    { 
+      nombre: "Encogimiento de hombros", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Sostén una mancuerna en cada mano con las palmas hacia el cuerpo. Levanta lentamente los hombros hacia las orejas lo más alto posible, mantén la posición superior por un momento y baja lentamente las mancuernas hasta la posición inicial.",
+      gif: "/gifs/Dumbbell-Shrug.gif",
     }
   ],  
 
@@ -256,12 +262,6 @@ espalda: [
       series: 3, reps: "12", peso: "10",
       instrucciones: "Párese erguido con los pies separados al ancho de los hombros. Sostenga una mancuerna en cada mano. Levante las mancuernas por encima de la cabeza. Baje las mancuernas con control.",
       gif: "/gifs/Standing-Dumbbell-Overhead-Press.gif",
-    },
-    { 
-      nombre: "Encogimiento de hombros", 
-      series: 3, reps: "12", peso: "10",
-      instrucciones: "Sostén una mancuerna en cada mano con las palmas hacia el cuerpo. Levanta lentamente los hombros hacia las orejas lo más alto posible, mantén la posición superior por un momento y baja lentamente las mancuernas hasta la posición inicial.",
-      gif: "/gifs/Dumbbell-Shrug.gif",
     },
     { 
       nombre: "Elevaciones laterales", 

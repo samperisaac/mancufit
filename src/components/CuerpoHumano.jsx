@@ -14,7 +14,6 @@ const zonasFrontal = [
   ];
 
   const zonasTrasera = [
-    { id: 'hombros', nombre: 'HOMBROS', top: '22%', left: '25%', side: 'left' },
     { id: 'trapecio', nombre: 'TRAPECIO', top: '15%', left: '49%', side: 'center' },
     { id: 'espalda', nombre: 'ESPALDA', top: '27%', left: '49%', side: 'center' },
     { id: 'gemelos', nombre: 'GEMELOS', top: '80%', left: '65%', side: 'right' },
