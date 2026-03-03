@@ -120,7 +120,7 @@ export const ejerciciosDB = {
     }
   ],  
   // PARTE PIERNAS //
-  Cuádriceps: [
+  cuadriceps: [
     { 
       nombre: "elevaciones pantorrilla", 
       series: 3, reps: "15", peso: "Peso corporal",
@@ -136,7 +136,7 @@ export const ejerciciosDB = {
       gif: "/gifs/Lying-Scissor-Kick.gif"
     }
   ],
-  Aductores: [
+  aductores: [
     { 
       nombre: "Estocada de péndulo", 
       series: 3, reps: "12", peso: "Peso corporal",
@@ -144,7 +144,7 @@ export const ejerciciosDB = {
       gif: "/gifs/pendulum-lunge.gif"
     }
   ],
-  Glúteos: [
+  gluteos: [
     { 
       nombre: "Zancadas (Lunges)", 
       series: 3, reps: "12", peso: "10",
@@ -158,7 +158,7 @@ export const ejerciciosDB = {
       gif: "/gifs/Dumbbell-Bulgarian-Split-Squat.gif"
     }
   ],
-  Isquiotibiales: [
+  isquiotibiales: [
     { 
       nombre: "Estocada de péndulo", 
       series: 3, reps: "12", peso: "Peso corporal",
@@ -166,7 +166,7 @@ export const ejerciciosDB = {
       gif: "/gifs/pendulum-lunge.gif"
     }
   ],
-  Gemelos: [
+  gemelos: [
     { 
       nombre: "Estocada de péndulo", 
       series: 3, reps: "12", peso: "Peso corporal",
@@ -292,7 +292,7 @@ espalda: [
       gif: "/gifs/Single-Leg-Dumbbell-Side-Bridge.gif"
     }
   ],
- Cardio: [
+ cardio: [
     { 
       nombre: "Burpees", 
       series: 3, reps: "20", peso: "Peso humano",

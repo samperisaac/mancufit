@@ -9,20 +9,20 @@ const zonasFrontal = [
     { id: 'pecho', nombre: 'PECHO', top: '25%', left: '50%', side: 'center' },
     { id: 'biceps', nombre: 'BICEPS', top: '33%', left: '73%', side: 'right' },
     { id: 'abdomen', nombre: 'ABDOMEN', top: '40%', left: '50%', side: 'center' },
-    { id: 'Cuádriceps', nombre: 'CUÁDRICEPS', top: '62%', left: '43%', side: 'center' },
-    { id: 'Aductores', nombre: 'ADUCTORES', top: '52%', left: '50%', side: 'center' },
-    { id: 'Cardio', nombre: 'CARDIO', top: '80%', left: '77%', side: 'center' },
+    { id: 'cuadriceps', nombre: 'CUADRICEPS', top: '62%', left: '43%', side: 'center' },
+    { id: 'aductores', nombre: 'ADUCTORES', top: '52%', left: '50%', side: 'center' },
+    { id: 'cardio', nombre: 'CARDIO', top: '80%', left: '77%', side: 'center' },
   ];
 
   const zonasTrasera = [
     { id: 'hombros', nombre: 'HOMBROS', top: '22%', left: '25%', side: 'left' },
     { id: 'espalda', nombre: 'TRAPECIO', top: '15%', left: '49%', side: 'center' },
     { id: 'espalda', nombre: 'ESPALDA', top: '27%', left: '49%', side: 'center' },
-    { id: 'Gemelos', nombre: 'GEMELOS', top: '80%', left: '65%', side: 'right' },
-    { id: 'Glúteos', nombre: 'GLÚTEO', top: '50%', left: '55%', side: 'center' },
+    { id: 'gemelos', nombre: 'GEMELOS', top: '80%', left: '65%', side: 'right' },
+    { id: 'gluteos', nombre: 'GLUTEO', top: '50%', left: '55%', side: 'center' },
     { id: 'triceps', nombre: 'TRICEPS', top: '30%', left: '75%', side: 'right' },
-    { id: 'Isquiotibiales', nombre: 'Isquiotibiales', top: '62%', left: '40%', side: 'center' },
-    { id: 'Cardio', nombre: 'CARDIO', top: '85%', left: '27%', side: 'center' },
+    { id: 'isquiotibiales', nombre: 'Isquiotibiales', top: '62%', left: '40%', side: 'center' },
+    { id: 'cardio', nombre: 'CARDIO', top: '85%', left: '27%', side: 'center' },
   ];
 
   const zonasActuales = vistaActiva === 'frontal' ? zonasFrontal : zonasTrasera;
