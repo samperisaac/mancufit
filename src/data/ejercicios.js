@@ -50,6 +50,12 @@ export const ejerciciosDB = {
       gif: "/gifs/remo_con_mancuernas.gif",
     },
     { 
+      nombre: "Encogimiento de hombros", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Sostén una mancuerna en cada mano con las palmas hacia el cuerpo. Levanta lentamente los hombros hacia las orejas lo más alto posible, mantén la posición superior por un momento y baja lentamente las mancuernas hasta la posición inicial.",
+      gif: "/gifs/Dumbbell-Shrug.gif",
+    },
+    { 
       nombre: "Remo inclinado (ambas)", 
       series: 3, reps: "12", peso: "10",
       instrucciones: "Inclina el torso 45 grados, espalda recta. Tira de ambas mancuernas hacia tu ombligo apretando las escápulas.",
@@ -73,6 +79,12 @@ export const ejerciciosDB = {
       series: 3, reps: "12", peso: "cuerda",
       instrucciones: "Sentado en el suelo, espalda 90 grados. Tira de la cuerda hacia ti.",
       gif: "/gifs/Band-Seated-Row.gif",
+    },
+    { 
+      nombre: "Elevación lateral inclinada", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "Inclínese hacia adelante desde las caderas. Mantén los codos ligeramente flexionados, eleva los brazos hacia los lados. Mantén la posición un instante y luego baja lentamente hasta la posición inicial.",
+      gif: "/gifs/Bent-Over-Lateral-Raise.gif",
     },
     { 
       nombre: "Peso muerto con mancuernas", 
@@ -165,10 +177,16 @@ export const ejerciciosDB = {
   piernas: [
     { 
       nombre: "elevaciones pantorrilla", 
-      series: 3, reps: "15", peso: "15",
+      series: 3, reps: "15", peso: "Peso corporal",
       instrucciones: " coloque los dedos de los pies planos sobre el extremo de una plataforma alta y distribuya su peso de manera uniforme entre ambas piernas,  levántese lentamente sobre las puntas de los pies, levantando los talones del suelo lo más alto que pueda cómodamente y contrayendo completamente las pantorrillas. baje suavemente los talones hasta el suelo, manteniendo el control durante todo el movimiento.",
       tips: "Que tus rodillas no sobrepasen exageradamente la punta de los pies.",
       gif: "/gifs/elevaciones_pantorrilla.gif"
+    },
+    { 
+      nombre: "Estocada de péndulo", 
+      series: 3, reps: "12", peso: "Peso corporal",
+      instrucciones: "Párese derecho con los pies separados. Da un paso hacia adelante con una pierna, sin pausar, empuje el pie delantero y balancee la misma pierna hacia atrás en una estocada inversa.",
+      gif: "/gifs/pendulum-lunge.gif"
     },
     { 
       nombre: "Zancadas (Lunges)", 
@@ -180,7 +198,7 @@ export const ejerciciosDB = {
       nombre: "Sentadilla búlgara", 
       series: 3, reps: "10", peso: "5",
       instrucciones: "Un pie apoyado atrás en un banco o silla. Baja con la pierna delantera. Muy exigente para el equilibrio.",
-      tips: "Inclina el torso un poco hacia adelante para enfocar más el glúteo."
+      gif: "/gifs/Dumbbell-Bulgarian-Split-Squat.gif"
     }
   ],
   hombros: [
@@ -189,6 +207,18 @@ export const ejerciciosDB = {
       series: 3, reps: "10", peso: "10",
       instrucciones: "Sentado o de pie. Empuja las mancuernas desde los hombros hacia el techo hasta estirar los brazos.",
       tips: "No archives la espalda baja, mantén el abdomen fuerte."
+    },
+    { 
+      nombre: "Elevación en T inclinada", 
+      series: 3, reps: "12", peso: "10",
+      instrucciones: "El ejercicio de elevación en T inclinada con mancuernas trabaja especialmente las regiones laterales y posteriores de los hombros.",
+      gif: "/gifs/Dumbbell-Incline-T-Raise.gif",
+    },
+    { 
+      nombre: "Elevación con mancuernas", 
+      series: 3, reps: "10", peso: "10",
+      instrucciones: "El ejercicio de elevación con mancuernas se centra en los músculos trapecio y hombros.",
+      gif: "/gifs/Dumbbell-Raise.gif"
     },
     { 
       nombre: "Elevaciones laterales", 
